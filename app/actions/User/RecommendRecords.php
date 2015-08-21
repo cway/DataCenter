@@ -18,7 +18,7 @@ class RecommendRecordsAction extends DWDData_Action
             $records           = $m_logRecommendApp->getUserRecommends( $userId );
             $total             = $m_logRecommendApp->getUserRecommendsCnt( $userId );
             $res               = array(
-                                    'list'   => $records,
+                                    'list'   => empty( $records ) ? array() : $records,
                                     'total'  => $total,
                                  );
 

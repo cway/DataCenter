@@ -13,8 +13,9 @@ class UserInfoAction extends DWDData_Action
     {
         try
         {
-            $data = new UserModel;
-            $res  = $data->getUser( 1 );
+            $userId         = $this->getRequest()->getParam('userId');
+            $data           = new UserModel;
+            $res            = $data->getUser( $userId );
             $this->renderSuccessJson( array( 'data' => $res ) );
         }
         catch (Tee_Exception $e)

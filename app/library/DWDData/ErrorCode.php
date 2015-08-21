@@ -43,11 +43,11 @@ class DWDData_ErrorCode
 
     // 公用错误
     const TEXT_EMPTY_ERROR              = 110001;
-    const TEXT_EMPTY_ERROR_MSG          = '不能为空';
+    const TEXT_EMPTY_ERROR_MSG          = '请求参数不能为空';
     const TEXT_LONG_ERROR               = 110002;
-    const TEXT_LONG_ERROR_MSG           = '不能过长';
+    const TEXT_LONG_ERROR_MSG           = '请求参数不能过长';
     const TEXT_FORMAT_ERROR             = 110003;
     const TEXT_FORMAT_ERROR_MSG         = '格式不正确';
-    const POST_ERROR                    = 110004;
-    const POST_ERROR_MSG                = '提交方式错误';
+    const REQUEST_METHOD_ERROR          = 110004;
+    const REQUEST_METHOD_ERROR_MSG      = '请求方式错误';
 }

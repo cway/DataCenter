@@ -18,7 +18,7 @@ class SMSRecordsAction extends DWDData_Action
 
             if( false == isset( $params['mobile'] ) ||  empty( $params['mobile'] ) ){
             	$m_user     = new UserModel;
-            	$res        = $m_user->getUser( $userId, array( 'mobile' ) );
+            	$res        = $m_user->getUser( $params['userId'], array( 'mobile' ) );
             	$userMobile = $res['mobile'];
             } else {
                 $userMobile = $params['mobile'];
@@ -29,7 +29,7 @@ class SMSRecordsAction extends DWDData_Action
             $records        = $m_logSMS->getUserSMS( $userMobile );
             $total          = $m_logSMS->getUserSMSCnt( $userMobile );
             $res            = array(
-            					'list'   => $records,
+            					'list'   => empty( $records ) ? array() : $records,
             					'total'  => $total,
             				  );
             

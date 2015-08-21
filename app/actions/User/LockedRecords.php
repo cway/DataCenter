@@ -16,9 +16,9 @@ class LockedRecordsAction extends DWDData_Action
             $userId            = $this->getRequest()->getParam('userId');
             $m_logUserLock     = new LogUserLockModel;
             $records           = $m_logUserLock->getUserLockedRecords( $userId );
-            $total             = $m_logRecommendApp->getUserLockedRecordsCnt( $userId );
+            $total             = $m_logUserLock->getUserLockedRecordsCnt( $userId );
             $res               = array(
-                                    'list'   => $records,
+                                    'list'   => empty( $records ) ? array() : $records,
                                     'total'  => $total,
                                  );
             $this->renderSuccessJson( array( 'data' => $res ) );

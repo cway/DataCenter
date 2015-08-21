@@ -1,11 +1,11 @@
 <?php
 /**
  * @file    Complaints.php
- * @des     获取用户封号信息
+ * @des     获取商户封号信息
  * @author  caowei
  *
  */
-class CoinRecordsAction extends DWDData_Action
+class ComplaintsAction extends DWDData_Action
 {
     protected $_isCheckAuth = false;
 
@@ -13,10 +13,10 @@ class CoinRecordsAction extends DWDData_Action
     {
         try
         { 
-            $userId            = $this->getRequest()->getParam('userId');
-            $m_complaint       = new LogCoinBalanceModel;
-            $records           = $m_complaint->getUserCoinRecords( $userId );
-            $total             = $m_complaint->getUserCoinRecordsCnt( $userId );
+            $branchId          = $this->getRequest()->getParam('branchId');
+            $m_complaint       = new ComplaintModel;
+            $records           = $m_complaint->getUserComplaints( $branchId );
+            $total             = $m_complaint->getUserComplaintsCnt( $branchId );
             $res               = array(
                                     'list'   => empty( $records ) ? array() : $records,
                                     'total'  => $total,

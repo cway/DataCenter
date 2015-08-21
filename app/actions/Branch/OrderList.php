@@ -1,22 +1,22 @@
 <?php
 /**
- * @file    Complaints.php
- * @des     获取用户封号信息
+ * @file    OrderList.php
+ * @des     获取商户订单列表
  * @author  caowei
  *
  */
-class CoinRecordsAction extends DWDData_Action
+class OrderListAction extends DWDData_Action
 {
-    protected $_isCheckAuth = false;
+    protected $_isCheckAuth    = false;
 
     public function _exec()
     {
         try
-        { 
-            $userId            = $this->getRequest()->getParam('userId');
-            $m_complaint       = new LogCoinBalanceModel;
-            $records           = $m_complaint->getUserCoinRecords( $userId );
-            $total             = $m_complaint->getUserCoinRecordsCnt( $userId );
+        {
+            $branchId          = $this->getRequest()->getParam('branchId');
+            $m_productOrder    = new ProductOrderModel;
+            $records           = $m_productOrder->getBranchOrders( $branchId );
+            $total             = $m_productOrder->getBranchOrderssCnt( $branchId );
             $res               = array(
                                     'list'   => empty( $records ) ? array() : $records,
                                     'total'  => $total,

@@ -18,7 +18,7 @@ class ComplaintsAction extends DWDData_Action
             $records           = $m_complaint->getUserComplaints( $userId );
             $total             = $m_complaint->getUserComplaintsCnt( $userId );
             $res               = array(
-                                    'list'   => $records,
+                                    'list'   => empty( $records ) ? array() : $records,
                                     'total'  => $total,
                                  );
             $this->renderSuccessJson( array( 'data' => $res ) );

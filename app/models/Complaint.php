@@ -15,7 +15,7 @@ class ComplaintModel extends DWDData_Db {
                                    );
 
     /**
-     *获取投诉列表
+     *获取用户投诉列表
      */
     public function getUserComplaints( $userId, $option = array() ) {
     	 
@@ -27,9 +27,29 @@ class ComplaintModel extends DWDData_Db {
     }
 
     /**
-     *获取投诉列表数
+     *获取用户投诉列表数
      */
     public function getUserComplaintsCnt( $userId ){
          return  $this->where( 'user_id', $userId )->count;
+    } 
+
+
+    /**
+     *获取商户投诉列表
+     */
+    public function getBranchComplaints( $branchId, $option = array() ) {
+         
+         $rowNums     = array( ); 
+         $rowNums[0]  = isset( $option['offset'] ) ? intval( $option['offset'] ) : $this->startPage;
+         $rowNums[1]  = isset( $option['limit'] )  ? intval( $option['limit'] )  : $this->pageLimit;
+
+         return  $this->where( 'branch_id', $branchId )->get( $rowNums, $this->fieldTypes[self::FILED_COMMON_TYPE] );
+    }
+
+    /**
+     *获取商户投诉列表数
+     */
+    public function getBranchComplaintsCnt( $branchId ){
+         return  $this->where( 'branch_id', $branchId )->count;
     } 
 }
