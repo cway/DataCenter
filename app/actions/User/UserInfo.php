@@ -1,8 +1,8 @@
 <?php
 /**
  * @file    UserInfo.php
- * @des     更新购物车
- * @author  leixiong monday41
+ * @des     获取用户信息
+ * @author  caowei
  *
  */
 class UserInfoAction extends DWDData_Action
@@ -12,8 +12,10 @@ class UserInfoAction extends DWDData_Action
     public function _exec()
     {
         try
-        { 
-            $this->renderSuccessJson( array( 'data' => 'halo world!' ) ); 
+        {
+            $data = new UserModel;
+            $res  = $data->getUser( 1 );
+            $this->renderSuccessJson( array( 'data' => $res ) );
         }
         catch (Tee_Exception $e)
         {
