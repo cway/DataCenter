@@ -13,13 +13,9 @@ class ComplaintsAction extends DWDData_Action
     {
         $branchId          = $this->getRequest()->getParam('branchId');
         $m_complaint       = new ComplaintModel;
-        $options            = self::_initQueryOptions();
-        $records           = $m_complaint->getUserComplaints( $branchId, $options );
-        $total             = $m_complaint->getUserComplaintsCnt( $branchId );
-        $res               = array(
-                                'list'   => empty( $records ) ? array() : $records,
-                                'total'  => $total,
-                             );
+        $options           = self::_initQueryOptions();
+        $res               = $m_complaint->getBranchComplaints( $branchId, $options );
+
         $this->renderSuccessJson( array( 'data' => $res ) );
     }
 }

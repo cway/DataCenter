@@ -15,12 +15,8 @@ class LockedRecordsAction extends DWDData_Action
         $userId             = $this->getRequest()->getParam('userId');
         $m_logUserLock      = new LogUserLockModel;
         $options            = self::_initQueryOptions();
-        $records            = $m_logUserLock->getUserLockedRecords( $userId, $options );
-        $total              = $m_logUserLock->getUserLockedRecordsCnt( $userId );
-        $res                = array(
-                                 'list'   => empty( $records ) ? array() : $records,
-                                 'total'  => $total,
-                              );
+        $res                = $m_logUserLock->getUserLockedRecords( $userId, $options );
+        
         $this->renderSuccessJson( array( 'data' => $res ) );
     }
 }

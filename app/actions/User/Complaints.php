@@ -14,12 +14,8 @@ class ComplaintsAction extends DWDData_Action
         $userId             = $this->getRequest()->getParam('userId');
         $m_complaint        = new ComplaintModel;
         $options            = self::_initQueryOptions();
-        $records            = $m_complaint->getUserComplaints( $userId, $options );
-        $total              = $m_complaint->getUserComplaintsCnt( $userId );
-        $res                = array(
-                                'list'   => empty( $records ) ? array() : $records,
-                                'total'  => $total,
-                              );
+        $res                = $m_complaint->getUserComplaints( $userId, $options );
+
         $this->renderSuccessJson( array( 'data' => $res ) );
     }
 }

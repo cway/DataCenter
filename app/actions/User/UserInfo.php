@@ -10,7 +10,7 @@ class UserInfoAction extends DWDData_Action
     protected $_isCheckAuth = false;
 
     public function _exec()
-    {
+    { 
         $userId         = $this->getRequest()->getParam('userId');
         $mobile         = $this->getRequest()->getParam('mobile');
         $m_user         = new UserModel;
@@ -20,6 +20,7 @@ class UserInfoAction extends DWDData_Action
         } else if( false == empty( $mobile ) ){
         	$userInfo   = $m_user->getUserByMobile( $mobile );
         }
+     
         $this->renderSuccessJson( array( 'data' => $userInfo ) );
     }
 }

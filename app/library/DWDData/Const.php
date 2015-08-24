@@ -12,5 +12,6 @@ class DWDData_Const
 {
 	const DEFAULT_PAGE_LIMIT           = 20;
 	const DEFAULT_PAGE_NUM			   = 1;
+	const DEFAULT_OFFSET			   = 0;
 	const MAX_PAGE_LIMIT               = 150;
 }

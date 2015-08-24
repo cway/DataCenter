@@ -27,8 +27,7 @@ class DWDData_ErrorCode
     const XSS_SAFE_ERRNO       = 990001;
     const REDIS_CONNECT_FAILED = 990002;
     const SERVER_ERROR         = 990000;
-    const SERVER_ERROR_MSG     = '系统错误';
-    const USER_NOT_LOGIN       = 100001;
+    const SERVER_ERROR_MSG     = '系统错误'; 
 
 
     const PARAMS_ERROR         = 800001;

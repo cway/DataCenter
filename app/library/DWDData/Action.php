@@ -43,21 +43,30 @@ abstract class DWDData_Action extends Yaf_Action_Abstract
     {}
 
     protected function _initQueryOptions(){
-        $options                =  array(
-                                     'limit'       => DWDData_Const::DEFAULT_PAGE_LIMIT,
-                                     'offset'      => DWDData_Const::DEFAULT_PAGE_NUM * DWDData_Const::DEFAULT_PAGE_LIMIT,
-                                   );
+            $options                   =  array(
+                                             'limit'       => DWDData_Const::DEFAULT_PAGE_LIMIT,
+                                             'offset'      => DWDData_Const::DEFAULT_OFFSET,
+                                           );
 
-        if( null != $this->getRequest()->getParam('pageLimit') ){
-            $options['limit']   = intval( $this->getRequest()->getParam('pageLimit') );
+        if( null != $this->getRequest()->getParam('pageLimit') && intval( $this->getRequest()->getParam('pageLimit') ) > 0 ){
+            $options['limit']          = intval( $this->getRequest()->getParam('pageLimit') );
         }
 
-        if( null != $this->getRequest()->getParam('pageNum') ){
-            $options['offset']  = intval( $this->getRequest()->getParam('pageNum') ) * $options['limit'];
+        if( null != $this->getRequest()->getParam('pageNum') && intval( $this->getRequest()->getParam('pageNum') ) > 0 ){
+            $options['offset']         = intval( $this->getRequest()->getParam('pageNum') ) * $options['limit'];
         }
 
         if( null != $this->getRequest()->getParam('sort') ){
-            $options['orderby'] = $this->getRequest()->getParam('sort');
+            $options['orderby']        = $this->getRequest()->getParam('sort');
+        }
+
+        if( null != $this->getRequest()->getParam('needPagination') ){
+            $options['needPagination'] = true;
+            if( null != $this->getRequest()->getParam('pageNum') && intval( $this->getRequest()->getParam('pageNum') ) > 0 ){
+                $options['pageNum']    = intval( $this->getRequest()->getParam('pageNum') );
+            } else {
+                $options['pageNum']    = DWDData_Const::DEFAULT_PAGE_NUM;
+            }
         }
 
         return $options;

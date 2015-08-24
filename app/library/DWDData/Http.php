@@ -7,27 +7,27 @@ class DWDData_Http {
         return $data;
     }
 
-    static function PackageGetRequest( &$ch, $reques ){ 
-        $path           =  http_build_query( $request['data'] );
-        $reques['url'] .= '?' . $path;
-        curl_setopt($ch, CURLOPT_URL, $reques['url']);
+    static function PackageGetRequest( &$ch, $request ){ 
+        $path            =  http_build_query( $request['data'] );
+        $request['url'] .= '?' . $path;
+        curl_setopt($ch, CURLOPT_URL, $request['url']);
         curl_setopt($ch, CURLOPT_TIMEOUT, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_NOSIGNAL, true);
     }
 
-    static function PackagePostRequest( &$ch, $reques ){ 
-        curl_setopt($ch, CURLOPT_URL, $reques['url']);
+    static function PackagePostRequest( &$ch, $request ){ 
+        curl_setopt($ch, CURLOPT_URL, $request['url']);
         curl_setopt($ch, CURLOPT_TIMEOUT, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_NOSIGNAL, true);
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $reques['data']);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $request['data']);
     } 
 
-    static function MutliCall($requests, $delay) {
+    static function MutliCall($requests, $delay = 0) {
 
         $queue                 = curl_multi_init();
         $map                   = array();
@@ -35,10 +35,10 @@ class DWDData_Http {
         foreach ($requests as $reqId => $request) {
             $ch                = curl_init();
             switch ( $request['method'] ) {
-                case 'post':
+                case 'get':
                     self::PackageGetRequest( $ch, $request );
                     break;
-                case 'get':
+                case 'post':
                     self::PackagePostRequest( $ch, $request );
                     break;
                 default: break;
@@ -62,8 +62,12 @@ class DWDData_Http {
                 $info     = curl_getinfo($done['handle']);
                 $error    = curl_error($done['handle']);
                 $results  = self::callback(curl_multi_getcontent($done['handle']), $delay);
-                $responses[$map[(string) $done['handle']]] = compact('info', 'error', 'results');
-     
+                
+                if( empty( $error ) ){
+                    $responses[$map[(string) $done['handle']]] = json_decode( $results, true );
+                } else {
+                    $responses[$map[(string) $done['handle']]] = false; //compact('info', 'error', 'results');
+                }
                 // remove the curl handle that just completed
                 curl_multi_remove_handle($queue, $done['handle']);
                 curl_close($done['handle']);
@@ -77,6 +81,8 @@ class DWDData_Http {
         } while ($active);
      
         curl_multi_close($queue);
+        ksort( $responses );
+
         return $responses;
     }
 

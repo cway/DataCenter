@@ -15,12 +15,8 @@ class BalanceRecordsAction extends DWDData_Action
         $userId             = $this->getRequest()->getParam('userId');
         $m_complaint        = new LogMoneyBalanceModel;
         $options            = self::_initQueryOptions();
-        $records            = $m_complaint->getUserMoneyRecords( $userId, $options );
-        $total              = $m_complaint->getUserMoneyRecordsCnt( $userId );
-        $res                = array(
-                                'list'   => empty( $records ) ? array() : $records,
-                                'total'  => $total,
-                             );
+        $res                = $m_complaint->getUserMoneyRecords( $userId, $options );
+               
         $this->renderSuccessJson( array( 'data' => $res ) );
     }
 }

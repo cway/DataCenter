@@ -11,8 +11,9 @@ class UserModel extends DWDData_Db {
     const FILED_COMMON_TYPE      = 0;
 
     protected $fieldTypes        = array(
-    						           array( 'username', 'zone_id', 'email', 'enabled', 'mobile', 'balance', 'coin', 'created_at', 'updated_at' ),
-    					           );
+    						          // array( 'username', 'zone_id', 'email', 'enabled', 'mobile', 'balance', 'coin', 'created_at', 'updated_at' ),
+    					               array( 'id', 'username', 'email', 'enabled', 'last_login', 'locked', 'expired', 'credentials_expired', 'mobile', 'avatar', 'balance', 'coin', 'coin_total_gain', 'coin_rank_percent', 'share_code', 'openim_account', 'created_at', 'updated_at' ),
+                                   );
 
 
     /**
@@ -57,7 +58,7 @@ class UserModel extends DWDData_Db {
     /**
      *更新用户信息
      */
-    public function updateUser( $userId, $updates ) {
+    public function updateUserInfo( $userId, $updates ) {
 
         $user                    = $this->byId( $userId );
         foreach( $updates as $key => $value ){

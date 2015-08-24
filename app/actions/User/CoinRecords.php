@@ -9,17 +9,42 @@ class CoinRecordsAction extends DWDData_Action
 {
     protected $_isCheckAuth = false;
 
+    const TYPE_RECOMMEND    = 2;
+
+    private function _getRecommendCoinRecords( $m_logCoinBalance, $userId, $options )
+    {
+    	$conditions         = array(
+              								 array(
+              								 	 'field'  => 'user_id',
+              							     	 'value'  => $userId,
+              							     	 'op'	  => '=',
+              								 ),
+              								 array(
+              							     	 'field'  => 'type',
+              							     	 'value'  =>  LogCoinBalanceModel::TYPE_RECOMMEND,
+              							     	 'op'	  => '=',
+              							     ), 
+                						);
+
+    	return $m_logCoinBalance->getCoinRecordsByConditions( $conditions, $options );
+    }
+
     public function _exec()
     {
         $userId             = $this->getRequest()->getParam('userId');
-        $m_complaint        = new LogCoinBalanceModel;
+        $m_logCoinBalance   = new LogCoinBalanceModel;
         $options            = self::_initQueryOptions();
-        $records            = $m_complaint->getUserCoinRecords( $userId, $options );
-        $total              = $m_complaint->getUserCoinRecordsCnt( $userId );
-        $res                = array(
-                                 'list'   => empty( $records ) ? array() : $records,
-                                 'total'  => $total,
-                              );
+        $type			          = $this->getRequest()->getParam('type');
+       
+        switch( $type ){
+       	    case self::TYPE_RECOMMEND:
+       	    	$res          = self::_getRecommendCoinRecords( $m_logCoinBalance, $userId, $options );
+       	  	    break;
+       	    default:
+       	  	    $res        = $m_logCoinBalance->getUserCoinRecords( $userId, $options );
+       	  	    break;
+        } 
+         
         $this->renderSuccessJson( array( 'data' => $res ) );
     }
 }

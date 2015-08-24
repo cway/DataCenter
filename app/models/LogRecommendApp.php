@@ -18,12 +18,26 @@ class LogRecommendAppModel extends DWDData_Db {
      *获取用户推荐列表
      */
     public function getUserRecommends( $userId, $option = array() ) {
-    	 
-         $rowNums     = array( ); 
-         $rowNums[0]  = isset( $option['offset'] ) ? intval( $option['offset'] ) : $this->startPage;
-         $rowNums[1]  = isset( $option['limit'] )  ? intval( $option['limit'] )  : $this->pageLimit;
-
-         return  $this->where( 'user_id', $userId )->get( $rowNums, $this->fieldTypes[self::FILED_COMMON_TYPE] );
+    	
+         $res                 = array();
+          
+         if( isset( $option['needPagination'] ) && true == $option['needPagination'] ){
+            $this->pageLimit  = isset( $option['limit'] )   ? intval( $option['limit'] )   : $this->pageLimit;
+            $pageNum          = isset( $option['pageNum'] ) ? intval( $option['pageNum'] ) : $this->startPage;
+            $res['list']      = $this->where( 'user_id', $userId )->paginate( $pageNum, $this->fieldTypes[self::FILED_COMMON_TYPE] );
+            $res['totalPage'] = $this->totalPages;
+            $res['totalCnt']  = intval( $this->totalCount );
+         } else {
+            $rowNums          = array( ); 
+            $rowNums[0]       = isset( $option['offset'] ) ? intval( $option['offset'] ) : $this->defaultOffset;
+            $rowNums[1]       = isset( $option['limit'] )  ? intval( $option['limit'] )  : $this->pageLimit;
+            $res['list']      = $this->where( 'user_id', $userId )->get( $rowNums, $this->fieldTypes[self::FILED_COMMON_TYPE] );
+         }
+        
+         if( null == $res['list'] ){
+            $res['list']      = array();
+         }
+         return $res;
     }
 
     /**

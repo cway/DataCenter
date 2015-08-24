@@ -19,11 +19,26 @@ class ComplaintModel extends DWDData_Db {
      */
     public function getUserComplaints( $userId, $option = array() ) {
     	 
-         $rowNums     = array( ); 
-         $rowNums[0]  = isset( $option['offset'] ) ? intval( $option['offset'] ) : $this->startPage;
-         $rowNums[1]  = isset( $option['limit'] )  ? intval( $option['limit'] )  : $this->pageLimit;
+         $res                 = array();
+          
+         if( isset( $option['needPagination'] ) && true == $option['needPagination'] ){
+            $this->pageLimit  = isset( $option['limit'] )   ? intval( $option['limit'] )   : $this->pageLimit;
+            $pageNum          = isset( $option['pageNum'] ) ? intval( $option['pageNum'] ) : $this->startPage;
+            $res['list']      = $this->where( 'user_id', $userId )->paginate( $pageNum, $this->fieldTypes[self::FILED_COMMON_TYPE] );
+            $res['totalPage'] = $this->totalPages;
+            $res['totalCnt']  = intval( $this->totalCount );
+         } else {
+            $rowNums          = array( ); 
+            $rowNums[0]       = isset( $option['offset'] ) ? intval( $option['offset'] ) : $this->defaultOffset;
+            $rowNums[1]       = isset( $option['limit'] )  ? intval( $option['limit'] )  : $this->pageLimit;
+            $res['list']      = $this->where( 'user_id', $userId )->get( $rowNums, $this->fieldTypes[self::FILED_COMMON_TYPE] );
+         }
+        
+         if( null == $res['list'] ){
+            $res['list']      = array();
+         }
 
-         return  $this->where( 'user_id', $userId )->get( $rowNums, $this->fieldTypes[self::FILED_COMMON_TYPE] );
+         return $res;
     }
 
     /**
@@ -31,7 +46,7 @@ class ComplaintModel extends DWDData_Db {
      */
     public function getUserComplaintsCnt( $userId ){
          return  $this->where( 'user_id', $userId )->count();
-    } 
+    }
 
 
     /**
@@ -39,11 +54,26 @@ class ComplaintModel extends DWDData_Db {
      */
     public function getBranchComplaints( $branchId, $option = array() ) {
          
-         $rowNums     = array( ); 
-         $rowNums[0]  = isset( $option['offset'] ) ? intval( $option['offset'] ) : $this->startPage;
-         $rowNums[1]  = isset( $option['limit'] )  ? intval( $option['limit'] )  : $this->pageLimit;
-
-         return  $this->where( 'branch_id', $branchId )->get( $rowNums, $this->fieldTypes[self::FILED_COMMON_TYPE] );
+         $res                 = array();
+          
+         if( isset( $option['needPagination'] ) && true == $option['needPagination'] ){
+            $this->pageLimit  = isset( $option['limit'] )   ? intval( $option['limit'] )   : $this->pageLimit;
+            $pageNum          = isset( $option['pageNum'] ) ? intval( $option['pageNum'] ) : $this->startPage;
+            $res['list']      = $this->where( 'branch_id', $branchId )->paginate( $pageNum, $this->fieldTypes[self::FILED_COMMON_TYPE] );
+            $res['totalPage'] = $this->totalPages;
+            $res['totalCnt']  = intval( $this->totalCount );
+         } else {
+            $rowNums          = array( ); 
+            $rowNums[0]       = isset( $option['offset'] ) ? intval( $option['offset'] ) : $this->defaultOffset;
+            $rowNums[1]       = isset( $option['limit'] )  ? intval( $option['limit'] )  : $this->pageLimit;
+            $res['list']      = $this->where( 'branch_id', $branchId )->get( $rowNums, $this->fieldTypes[self::FILED_COMMON_TYPE] );
+         }
+        
+         if( null == $res['list'] ){
+            $res['list']      = array();
+         }
+         
+         return $res;
     }
 
     /**

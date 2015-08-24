@@ -6,7 +6,7 @@ class User_BalanceRecords_Request extends DWDData_Request
     {
         if ($_SERVER['REQUEST_METHOD'] != 'GET') {
 
-            throw new DWDData_Exception(DWDData_ErrorCode::REQUEST_METHOD_ERROR, DWDData_ErrorCode::REQUEST_METHOD_ERROR_MSG);
+            throw new DWDData_Exception(DWDData_ErrorCode::REQUEST_METHOD_ERROR_MSG, DWDData_ErrorCode::REQUEST_METHOD_ERROR);
         }
 
         if ($this->getParam('userId') == null ){

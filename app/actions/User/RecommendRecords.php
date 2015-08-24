@@ -14,12 +14,7 @@ class RecommendRecordsAction extends DWDData_Action
         $userId             = $this->getRequest()->getParam('userId');
         $m_logRecommendApp  = new LogRecommendAppModel;
         $options            = self::_initQueryOptions();
-        $records            = $m_logRecommendApp->getUserRecommends( $userId, $options );
-        $total              = $m_logRecommendApp->getUserRecommendsCnt( $userId );
-        $res                = array(
-                                 'list'   => empty( $records ) ? array() : $records,
-                                 'total'  => $total,
-                              );
+        $res                = $m_logRecommendApp->getUserRecommends( $userId, $options );
 
         $this->renderSuccessJson( array( 'data' => $res ) );
     }
