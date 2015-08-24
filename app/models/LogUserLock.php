@@ -30,6 +30,6 @@ class LogUserLockModel extends DWDData_Db {
      *获取用户封号记录数
      */
     public function getUserLockedRecordsCnt( $userId ){
-         return  $this->where( 'user_id', $userId )->count;
+         return  $this->where( 'user_id', $userId )->count();
     } 
 }

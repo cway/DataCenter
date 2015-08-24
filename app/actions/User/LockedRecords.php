@@ -11,21 +11,16 @@ class LockedRecordsAction extends DWDData_Action
 
     public function _exec()
     {
-        try
-        { 
-            $userId            = $this->getRequest()->getParam('userId');
-            $m_logUserLock     = new LogUserLockModel;
-            $records           = $m_logUserLock->getUserLockedRecords( $userId );
-            $total             = $m_logUserLock->getUserLockedRecordsCnt( $userId );
-            $res               = array(
-                                    'list'   => empty( $records ) ? array() : $records,
-                                    'total'  => $total,
-                                 );
-            $this->renderSuccessJson( array( 'data' => $res ) );
-        }
-        catch (Tee_Exception $e)
-        {
-            $this->renderErrorJson( array( 'errno' => $e->getCode(), 'errmsg' => $e->getMessage() ) );
-        }
+        
+        $userId             = $this->getRequest()->getParam('userId');
+        $m_logUserLock      = new LogUserLockModel;
+        $options            = self::_initQueryOptions();
+        $records            = $m_logUserLock->getUserLockedRecords( $userId, $options );
+        $total              = $m_logUserLock->getUserLockedRecordsCnt( $userId );
+        $res                = array(
+                                 'list'   => empty( $records ) ? array() : $records,
+                                 'total'  => $total,
+                              );
+        $this->renderSuccessJson( array( 'data' => $res ) );
     }
 }

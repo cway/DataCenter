@@ -30,6 +30,6 @@ class LogSMSModel extends DWDData_Db {
      *获取用户短信数
      */
     public function getUserSMSCnt( $mobile ){
-         return  $this->where( 'mobile', $mobile )->count;
+         return  $this->where( 'mobile', $mobile )->count();
     } 
 }

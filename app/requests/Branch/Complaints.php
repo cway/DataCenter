@@ -12,6 +12,8 @@ class Branch_Complaints_Request extends DWDData_Request
         if ($this->getParam('branchId') == null ){
 
             throw new DWDData_Exception(DWDData_ErrorCode::PARAMS_ERROR_MSG, DWDData_ErrorCode::PARAMS_ERROR);
-        } 
+        }
+
+        return parent::checkParams();
     }
 }

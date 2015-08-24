@@ -29,6 +29,6 @@ class LogMoneyBalanceModel extends DWDData_Db {
      *获取用户余额记录数
      */
     public function getUserMoneyRecordsCnt( $userId ){
-         return  $this->where( 'user_id', $userId )->count;
+         return  $this->where( 'user_id', $userId )->count();
     } 
 }

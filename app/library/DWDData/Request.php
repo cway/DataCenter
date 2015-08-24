@@ -140,6 +140,10 @@ class DWDData_Request
      */
     public function checkParams ()
     {
+       if ($this->getParam('pageLimit') != null && intval($this->getParam('pageLimit')) >= DWDData_Const::MAX_PAGE_LIMIT ){
+
+          $this->setParam('pageLimit', DWDData_Const::MAX_PAGE_LIMIT);
+       } 
     }
     /*
      * 是否有这个参数;

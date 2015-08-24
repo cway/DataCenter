@@ -30,7 +30,7 @@ class ComplaintModel extends DWDData_Db {
      *获取用户投诉列表数
      */
     public function getUserComplaintsCnt( $userId ){
-         return  $this->where( 'user_id', $userId )->count;
+         return  $this->where( 'user_id', $userId )->count();
     } 
 
 
@@ -50,6 +50,6 @@ class ComplaintModel extends DWDData_Db {
      *获取商户投诉列表数
      */
     public function getBranchComplaintsCnt( $branchId ){
-         return  $this->where( 'branch_id', $branchId )->count;
+         return  $this->where( 'branch_id', $branchId )->count();
     } 
 }

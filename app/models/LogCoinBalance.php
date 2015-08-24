@@ -30,6 +30,6 @@ class LogCoinBalanceModel extends DWDData_Db {
      *获取用户金币记录数
      */
     public function getUserCoinRecordsCnt( $userId ){
-         return  $this->where( 'user_id', $userId )->count;
+         return  $this->where( 'user_id', $userId )->count();
     } 
 }

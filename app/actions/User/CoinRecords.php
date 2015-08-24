@@ -11,21 +11,15 @@ class CoinRecordsAction extends DWDData_Action
 
     public function _exec()
     {
-        try
-        { 
-            $userId            = $this->getRequest()->getParam('userId');
-            $m_complaint       = new LogCoinBalanceModel;
-            $records           = $m_complaint->getUserCoinRecords( $userId );
-            $total             = $m_complaint->getUserCoinRecordsCnt( $userId );
-            $res               = array(
-                                    'list'   => empty( $records ) ? array() : $records,
-                                    'total'  => $total,
-                                 );
-            $this->renderSuccessJson( array( 'data' => $res ) );
-        }
-        catch (Tee_Exception $e)
-        {
-            $this->renderErrorJson( array( 'errno' => $e->getCode(), 'errmsg' => $e->getMessage() ) );
-        }
+        $userId             = $this->getRequest()->getParam('userId');
+        $m_complaint        = new LogCoinBalanceModel;
+        $options            = self::_initQueryOptions();
+        $records            = $m_complaint->getUserCoinRecords( $userId, $options );
+        $total              = $m_complaint->getUserCoinRecordsCnt( $userId );
+        $res                = array(
+                                 'list'   => empty( $records ) ? array() : $records,
+                                 'total'  => $total,
+                              );
+        $this->renderSuccessJson( array( 'data' => $res ) );
     }
 }

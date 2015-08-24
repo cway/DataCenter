@@ -30,7 +30,7 @@ class UserDeviceModel extends DWDData_Db {
      *获取用户设备数
      */
     public function getUserDevicesCnt( $userId ){
-         return  $this->where( 'user_id', $userId )->count;
+         return  $this->where( 'user_id', $userId )->count();
     }
 
     /**
@@ -42,7 +42,7 @@ class UserDeviceModel extends DWDData_Db {
                           'user_id' => $userId,
                           'udid'    => $udid,
                         );
-        $deviceInfo   = $this->where( $condition )->getOne();
+        $deviceInfo   = $this->where( $condition )->getOne( $this->fieldTypes[self::FILED_COMMON_TYPE] );
         $condition    = array(
                           'id' => $deviceInfo['id'],
                         );  

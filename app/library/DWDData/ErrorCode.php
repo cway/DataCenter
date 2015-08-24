@@ -10,9 +10,9 @@
  */
 class DWDData_ErrorCode
 {
-    const NORMAL     = 0;
-    const NORMAL_MSG = 'success';
-    const NORMAL_APP_MSG = 'OK';
+    const NORMAL               = 0;
+    const NORMAL_MSG           = 'success';
+    const NORMAL_APP_MSG       = 'OK';
 
     // 参数错误
     const MSG_PARAMS_NOT_ARRAY = '参数不是数组';
@@ -50,4 +50,6 @@ class DWDData_ErrorCode
     const TEXT_FORMAT_ERROR_MSG         = '格式不正确';
     const REQUEST_METHOD_ERROR          = 110004;
     const REQUEST_METHOD_ERROR_MSG      = '请求方式错误';
+    const REQUEST_URL_ERROR             = 110005;
+    const REQUEST_URL_ERROR_MSG         = '请求URL错误';
 }

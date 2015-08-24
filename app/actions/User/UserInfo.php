@@ -11,16 +11,15 @@ class UserInfoAction extends DWDData_Action
 
     public function _exec()
     {
-        try
-        {
-            $userId         = $this->getRequest()->getParam('userId');
-            $data           = new UserModel;
-            $res            = $data->getUser( $userId );
-            $this->renderSuccessJson( array( 'data' => $res ) );
+        $userId         = $this->getRequest()->getParam('userId');
+        $mobile         = $this->getRequest()->getParam('mobile');
+        $m_user         = new UserModel;
+        $userInfo       = array();
+        if( false == empty( $userId ) ){
+        	$userInfo   = $m_user->getUser( $userId );
+        } else if( false == empty( $mobile ) ){
+        	$userInfo   = $m_user->getUserByMobile( $mobile );
         }
-        catch (Tee_Exception $e)
-        {
-            $this->renderErrorJson( array( 'errno' => $e->getCode(), 'errmsg' => $e->getMessage() ) );
-        }
+        $this->renderSuccessJson( array( 'data' => $userInfo ) );
     }
 }

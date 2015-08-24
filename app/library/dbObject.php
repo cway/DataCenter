@@ -410,7 +410,7 @@ class dbObject {
      */
     private function count () {
         $res = $this->db->ArrayBuilder()->getValue ($this->dbTable, "count(*)");
-        return $res['cnt'];
+        return $res;
     }
 
     /**
@@ -424,7 +424,7 @@ class dbObject {
     private function paginate ($page, $fields = null) {
         $offset = $this->pageLimit * ($page - 1);
         $this->db->withTotalCount();
-        $results = $this->get (Array ($this->pageLimit, $offset), $fields);
+        $results = $this->get (Array ($offset, $this->pageLimit), $fields);
         $this->totalPages = round ($this->db->totalCount / $this->pageLimit);
 
         return $results;

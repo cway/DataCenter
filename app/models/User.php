@@ -32,6 +32,22 @@ class UserModel extends DWDData_Db {
     }
 
     /**
+     *根据电话获取用户信息
+     */
+    public function getUserByMobile( $userId, $fields = self::FILED_COMMON_TYPE ) {
+        if( false == is_array( $fields ) ){
+            $fields              = intval( $fields );
+            if( $fields < 0 || $fields >= count( $this->fieldTypes ) ){
+                $fields          = self::FILED_COMMON_TYPE;
+            }
+
+            $fields              = $this->fieldTypes[$fields];
+        }
+
+        return  $this->where( 'mobile', $mobile )->getOne( $fields );
+    }
+
+    /**
      *更新用户信息
      */
     public function updateUser( $user ) {

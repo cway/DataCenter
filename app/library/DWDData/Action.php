@@ -42,6 +42,27 @@ abstract class DWDData_Action extends Yaf_Action_Abstract
     protected function _initDev ()
     {}
 
+    protected function _initQueryOptions(){
+        $options                =  array(
+                                     'limit'       => DWDData_Const::DEFAULT_PAGE_LIMIT,
+                                     'offset'      => DWDData_Const::DEFAULT_PAGE_NUM * DWDData_Const::DEFAULT_PAGE_LIMIT,
+                                   );
+
+        if( null != $this->getRequest()->getParam('pageLimit') ){
+            $options['limit']   = intval( $this->getRequest()->getParam('pageLimit') );
+        }
+
+        if( null != $this->getRequest()->getParam('pageNum') ){
+            $options['offset']  = intval( $this->getRequest()->getParam('pageNum') ) * $options['limit'];
+        }
+
+        if( null != $this->getRequest()->getParam('sort') ){
+            $options['orderby'] = $this->getRequest()->getParam('sort');
+        }
+
+        return $options;
+    }
+
     public function init ()
     {
         Yaf_Dispatcher::getInstance()->disableView();
@@ -198,6 +219,9 @@ abstract class DWDData_Action extends Yaf_Action_Abstract
         $result->setErrno( $errNO );
         $result->setErrmsg( $errMsg );
         $result->setData( $psResultData );
+        $this->getResponse()->setHeader( 'Content-Type', 'application/json;charset=utf-8' );
+        $this->getResponse()->setHeader( 'Server', 'apache/1.8.0' );
+        $this->getResponse()->setHeader( 'X-Powered-By', 'PHP' );
         $this->getResponse()->setBody( $result->toJson() );
     }
 

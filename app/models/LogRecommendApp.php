@@ -30,6 +30,6 @@ class LogRecommendAppModel extends DWDData_Db {
      *获取用户推荐列表数
      */
     public function getUserRecommendsCnt( $userId ){
-         return  $this->where( 'user_id', $userId )->count;
+         return  $this->where( 'user_id', $userId )->count();
     } 
 }

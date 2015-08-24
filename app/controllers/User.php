@@ -13,5 +13,6 @@ class UserController extends DWDData_Base {
                         'complaints'	   => 'actions/User/Complaints.php',
                         'coinrecords'	   => 'actions/User/CoinRecords.php',
                         'balancerecords'   => 'actions/User/BalanceRecords.php',
+                        'orderlist'		   => 'actions/User/OrderList.php',
                       );
 }
