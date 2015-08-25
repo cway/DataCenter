@@ -11,7 +11,7 @@ class DWDData_Http {
         $path            =  http_build_query( $request['data'] );
         $request['url'] .= '?' . $path;
         curl_setopt($ch, CURLOPT_URL, $request['url']);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_NOSIGNAL, true);
@@ -19,7 +19,7 @@ class DWDData_Http {
 
     static function PackagePostRequest( &$ch, $request ){ 
         curl_setopt($ch, CURLOPT_URL, $request['url']);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_NOSIGNAL, true);
@@ -66,7 +66,7 @@ class DWDData_Http {
                 if( empty( $error ) ){
                     $responses[$map[(string) $done['handle']]] = json_decode( $results, true );
                 } else {
-                    $responses[$map[(string) $done['handle']]] = false; //compact('info', 'error', 'results');
+                    $responses[$map[(string) $done['handle']]] = compact('info', 'error', 'results');
                 }
                 // remove the curl handle that just completed
                 curl_multi_remove_handle($queue, $done['handle']);

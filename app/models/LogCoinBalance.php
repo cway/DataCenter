@@ -58,6 +58,15 @@ class LogCoinBalanceModel extends DWDData_Db {
          return  $this->where( 'user_id', $userId )->count();
     }
 
+    /**
+     * 获取用户金币记录总金币额
+     */
+    public function getUserCoinAmountByType( $userId, $typeId ){
+        $this->where( 'user_id', $userId );
+        $this->where( 'type', $typeId );
+        $res                     = $this->getOne( 'sum(amount) as totalAmount' );
+        return $res;
+    }
 
     /**
      * 根据条件获取金币记录列表
@@ -74,7 +83,8 @@ class LogCoinBalanceModel extends DWDData_Db {
         }
 
         return self::getListByConditions( $conditions, $option, $fields );
-    }
+    } 
+     
 
     /**
      * 根据条件获取订单数量

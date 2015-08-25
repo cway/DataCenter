@@ -13,14 +13,14 @@ class SMSRecordsAction extends DWDData_Action
     { 
         /*    $data           = array(
                                     array(
-                                        'url'    => 'http://localhost/user/userInfo',
+                                        'url'    => 'http://internalapi.iqianggou.com:12306/user/userInfo',
                                         'data'   => array(
                                                       'userId'         => 289066,
                                                     ),
                                         'method' => 'get',
                                     ),
                                     array(
-                                        'url'    => 'http://localhost/user/orderlist',
+                                        'url'    => 'http://internalapi.iqianggou.com:12306/user/orderlist',
                                         'data'   => array(
                                                       'userId'         => 289066,
                                                       'needPagination' => 1,
@@ -30,7 +30,7 @@ class SMSRecordsAction extends DWDData_Action
                                         'method' => 'get',
                                     ),
                                     array(
-                                        'url'    => 'http://localhost/user/coinrecords',
+                                        'url'    => 'http://internalapi.iqianggou.com:12306/user/coinrecords',
                                         'data'   => array(
                                                       'userId'         => 289066,
                                                       'type'           => 1,
@@ -43,8 +43,8 @@ class SMSRecordsAction extends DWDData_Action
                                 );
 
         $res                = DWDData_Http::MutliCall( $data );
-        var_dump( $res );exit; */
-
+        var_dump( $res );exit; 
+*/
     	$params             =  $this->getRequest()->allParams();
         $userMobile         =  '';
 

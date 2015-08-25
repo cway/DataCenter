@@ -1,6 +1,6 @@
 <?php
 /**
- * @file    Complaints.php
+ * @file    BalanceRecords.php
  * @des     获取用户封号信息
  * @author  caowei
  *
@@ -13,9 +13,9 @@ class BalanceRecordsAction extends DWDData_Action
     {
        
         $userId             = $this->getRequest()->getParam('userId');
-        $m_complaint        = new LogMoneyBalanceModel;
+        $m_logMoneyBalance  = new LogMoneyBalanceModel;
         $options            = self::_initQueryOptions();
-        $res                = $m_complaint->getUserMoneyRecords( $userId, $options );
+        $res                = $m_logMoneyBalance->getUserMoneyRecords( $userId, $options );
                
         $this->renderSuccessJson( array( 'data' => $res ) );
     }
