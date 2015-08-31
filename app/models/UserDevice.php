@@ -11,13 +11,14 @@ class UserDeviceModel extends DWDData_Db {
     const  FILED_COMMON_TYPE     = 0;
 
     protected $fieldTypes        = array(
-                                       array( 'user_id', 'udid', 'os', 'app_version', 'created_at', 'updated_at' ),
+                                       array( 'id', 'user_id', 'udid', 'os', 'app_version', 'created_at', 'updated_at' ),
                                    );
 
     /**
      *获取用户设备
      */
-    public function getUserDevices( $userId, $option = array() ) {
+    public function getUserDevices( $userId, $option = array() ) 
+    {
     	 
          $res                 = array();
           
@@ -43,24 +44,27 @@ class UserDeviceModel extends DWDData_Db {
     /**
      *获取用户设备数
      */
-    public function getUserDevicesCnt( $userId ){
+    public function getUserDevicesCnt( $userId )
+    {
          return  $this->where( 'user_id', $userId )->count();
     }
 
     /**
      *解绑用户设备
      */
-    public function unBindDevice( $userId, $udid ){
+    public function unBindDevice( $userId )
+    {
 
-        $condition    = array(
-                          'user_id' => $userId,
-                          'udid'    => $udid,
-                        );
-        $deviceInfo   = $this->where( $condition )->getOne( $this->fieldTypes[self::FILED_COMMON_TYPE] );
+        $deviceInfo   = $this->where( 'user_id', $userId )->getOne( $this->fieldTypes[self::FILED_COMMON_TYPE] );
+
+        if( empty( $deviceInfo ) ){
+            return false;
+        }
+
         $condition    = array(
                           'id' => $deviceInfo['id'],
                         );  
-        $this->where( $condition )->delete();
-        return   $deviceInfo;
+        $res          = $this->where( 'user_id', $userId )->delete();
+        return  $res == true ? $deviceInfo : false;
     }
 }

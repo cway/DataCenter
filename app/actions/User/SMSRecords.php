@@ -10,41 +10,7 @@ class SMSRecordsAction extends DWDData_Action
     protected $_isCheckAuth = false;
 
     public function _exec()
-    { 
-        /*    $data           = array(
-                                    array(
-                                        'url'    => 'http://internalapi.iqianggou.com:12306/user/userInfo',
-                                        'data'   => array(
-                                                      'userId'         => 289066,
-                                                    ),
-                                        'method' => 'get',
-                                    ),
-                                    array(
-                                        'url'    => 'http://internalapi.iqianggou.com:12306/user/orderlist',
-                                        'data'   => array(
-                                                      'userId'         => 289066,
-                                                      'needPagination' => 1,
-                                                      'type'           => 2,
-                                                      'pageLimit'      => 1,
-                                                    ),
-                                        'method' => 'get',
-                                    ),
-                                    array(
-                                        'url'    => 'http://internalapi.iqianggou.com:12306/user/coinrecords',
-                                        'data'   => array(
-                                                      'userId'         => 289066,
-                                                      'type'           => 1,
-                                                      'needPagination' => 1,
-                                                      'pageLimit'      => 1,
-                                                    ),
-                                        'method' => 'get',
-                                        'key'    => 'a',
-                                    ),
-                                );
-
-        $res                = DWDData_Http::MutliCall( $data );
-        var_dump( $res );exit; 
-*/
+    {  
     	$params             =  $this->getRequest()->allParams();
         $userMobile         =  '';
 

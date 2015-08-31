@@ -1,7 +1,7 @@
 <?php
 /**
- * @name UserModel
- * @desc UserModel
+ * @name ProductOrderModel
+ * @desc ProductOrderModel
  * @author cway
  */
 class ProductOrderModel extends DWDData_Db {
@@ -25,9 +25,9 @@ class ProductOrderModel extends DWDData_Db {
 
 
     protected $fieldTypes                   = array(
-    						                      array( 'campaign_branch_id', 'redeem_branch_id', 'user_id', 'price', 'status', 'type', 'trade_number', 'created_at', 'updated_at' ),
+    						                      array( 'id', 'campaign_branch_id', 'redeem_branch_id', 'user_id', 'price', 'status', 'type', 'trade_number', 'expire_date' ,'created_at', 'updated_at' ),
     					                      );
-
+    protected $dbFields                     = array( 'id', 'campaign_branch_id', 'redeem_branch_id', 'user_id', 'price', 'status', 'type', 'trade_number', 'expire_date' ,'created_at', 'updated_at', 'redeem_number', 'redeem_time', 'redeem_user_id' );  
     /**
      *获取订单信息
      */
@@ -125,18 +125,19 @@ class ProductOrderModel extends DWDData_Db {
     public function getBranchOrders( $branchId, $option = array() ) {
          
          $res                 = array();
-          
+           
+
          if( isset( $option['needPagination'] ) && true == $option['needPagination'] ){
             $this->pageLimit  = isset( $option['limit'] )   ? intval( $option['limit'] )   : $this->pageLimit;
             $pageNum          = isset( $option['pageNum'] ) ? intval( $option['pageNum'] ) : $this->startPage;
-            $res['list']      = $this->where( 'campaign_branch_id', $branchId )->paginate( $pageNum, $this->fieldTypes[self::FILED_COMMON_TYPE] );
+            $res['list']      = $this->join("CampaignbranchHasBranchesModel", "campaign_branch_id", "INNER")->where('campaignbranch_has_branches.branch_id', $branchId)->paginate( $pageNum, $this->fieldTypes[self::FILED_COMMON_TYPE] );
             $res['totalPage'] = $this->totalPages;
             $res['totalCnt']  = intval( $this->totalCount );
          } else {
             $rowNums          = array( ); 
             $rowNums[0]       = isset( $option['offset'] ) ? intval( $option['offset'] ) : $this->defaultOffset;
             $rowNums[1]       = isset( $option['limit'] )  ? intval( $option['limit'] )  : $this->pageLimit;
-            $res['list']      = $this->where( 'campaign_branch_id', $branchId )->get( $rowNums, $this->fieldTypes[self::FILED_COMMON_TYPE] );
+            $res['list']      = $this->join("CampaignbranchHasBranchesModel", "campaign_branch_id", "INNER")->where('campaignbranch_has_branches.branch_id', $branchId)->get( $rowNums, $this->fieldTypes[self::FILED_COMMON_TYPE] );
          }
 
          if( null == $res['list'] ){
@@ -151,5 +152,14 @@ class ProductOrderModel extends DWDData_Db {
     public function getBranchOrdersCnt( $branchId, $option = array() ) {
          
          return $this->where( 'campaign_branch_id', $branchId )->count();
+    }
+
+    /**
+     *更新订单
+     */
+    public function updateOrder( $order ){
+
+        $order['updated_at']  = date('Y-m-d, H:i:s');
+        return $this->update( $order );
     }
 }

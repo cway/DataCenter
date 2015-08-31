@@ -1,7 +1,7 @@
 <?php
 /**
  * @file    Complaints.php
- * @des     获取用户封号信息
+ * @des     获取用户投诉信息
  * @author  caowei
  *
  */

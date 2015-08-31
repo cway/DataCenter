@@ -15,5 +15,7 @@ class UserController extends DWDData_Base {
                         'balancerecords'     => 'actions/User/BalanceRecords.php',
                         'orderlist'		   => 'actions/User/OrderList.php',
                         'oauthes'            => 'actions/User/OAuthes.php',
+                        'unbinddevice'       => 'actions/User/UnbindDevice.php',
+                        'locked'             => 'actions/User/Locked.php',
                       );
 }

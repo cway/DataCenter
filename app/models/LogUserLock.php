@@ -47,4 +47,19 @@ class LogUserLockModel extends DWDData_Db {
     public function getUserLockedRecordsCnt( $userId ){
          return  $this->where( 'user_id', $userId )->count();
     } 
+
+    /**
+     *添加用户封号/解封记录
+     */
+    public function addLockRecord( $lockInfo ) { 
+ 
+         $this->user_id           = $lockInfo['user_id'];
+         $this->operator_user_id  = $lockInfo['op_user_id'];
+         $this->type              = $lockInfo['type'];
+         $this->lock_date         = $lockInfo['lock_date'];
+         $this->note              = $lockInfo['note'];
+         $this->create_at         = date('Y-m-d H:i:s');
+         $this->reason_type       = $lockInfo['reason_type'];
+         return  $this->insert();
+    }
 }

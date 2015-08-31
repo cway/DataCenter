@@ -49,23 +49,24 @@ class DWDData_Http {
         }
      
         $responses        = array();
-
+ 
+        $i                = 1;
         do {
             while (($code = curl_multi_exec($queue, $active)) == CURLM_CALL_MULTI_PERFORM) ;
-     
+       
             if ($code != CURLM_OK) { break; }
-     
             // a request was just completed -- find out which one
             while ($done  = curl_multi_info_read($queue)) {
-               
+              // var_dump((string) $done['handle']);
+              // var_dump(time());
                 // get the info and content returned on the request
-                $info     = curl_getinfo($done['handle']);
                 $error    = curl_error($done['handle']);
-                $results  = self::callback(curl_multi_getcontent($done['handle']), $delay);
+                $results  = curl_multi_getcontent($done['handle']);
                 
                 if( empty( $error ) ){
                     $responses[$map[(string) $done['handle']]] = json_decode( $results, true );
                 } else {
+                    $info                                      = curl_getinfo($done['handle']);
                     $responses[$map[(string) $done['handle']]] = compact('info', 'error', 'results');
                 }
                 // remove the curl handle that just completed

@@ -187,6 +187,15 @@ class dbObject {
     }
 
     /**
+     * getDB
+     *
+     * @return MysqliDb
+     */
+    public  function getDB () {
+        return $this->db;
+    }
+
+    /**
      * Helper function to create dbObject with Array return type
      *
      * @return dbObject

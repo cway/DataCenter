@@ -14,7 +14,7 @@ class UserModel extends DWDData_Db {
     						          // array( 'username', 'zone_id', 'email', 'enabled', 'mobile', 'balance', 'coin', 'created_at', 'updated_at' ),
     					               array( 'id', 'username', 'email', 'enabled', 'last_login', 'locked', 'expired', 'credentials_expired', 'mobile', 'avatar', 'balance', 'coin', 'coin_total_gain', 'coin_rank_percent', 'share_code', 'openim_account', 'created_at', 'updated_at' ),
                                    );
-
+    protected $dbFields          = array( 'id', 'username', 'email', 'enabled', 'last_login', 'locked', 'expired', 'credentials_expired', 'locked_at', 'lock_date' ,'mobile', 'avatar', 'balance', 'coin', 'coin_total_gain', 'coin_rank_percent', 'share_code', 'openim_account', 'created_at', 'updated_at' );
 
     /**
      *获取用户信息
@@ -52,6 +52,8 @@ class UserModel extends DWDData_Db {
      *更新用户信息
      */
     public function updateUser( $user ) {
+
+        $user['updated_at']      = date('Y-m-d, H:i:s');
         return $this->update( $user );
     }
 

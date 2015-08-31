@@ -9,7 +9,7 @@ class DiscoveryModel extends DWDData_Db {
     protected $dbTable           = 'discovery'; 
 
     protected $fieldTypes        = array(
-                                       array( 'id', 'url', 'title', 'image_key', 'type'),
+                                       array( 'id', 'url', 'title', 'image_key', 'type', 'need_login'),
                                    );
 
     /**

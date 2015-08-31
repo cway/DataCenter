@@ -21,7 +21,7 @@ class DWDData_Db extends dbObject
 		parent::__construct();
 	}
 
-    private function _initConditions( $conditions )
+    protected function _initConditions( $conditions )
     {
         foreach( $conditions as $condition ){
             switch ( $condition['op'] ) {
@@ -36,6 +36,7 @@ class DWDData_Db extends dbObject
                 case '<=':
                 case '<': 
                 case '<=>':
+                case '!=':
                     $this->where( $condition['field'], $condition['value'], $condition['op'] );
                     break;
                 case '=':
@@ -45,6 +46,9 @@ class DWDData_Db extends dbObject
                 case 'col_eq':
                     $this->where( $condition['field'] . ' = ' . $condition['value'] );
                     break;    
+                case 'join':
+                    $this->join( $condition['modelName'], $condition['joinKey'], $condition['joinType'] ); 
+                    break;  
                 default:
                     break;
             }

@@ -51,4 +51,24 @@ class DWDData_ErrorCode
     const REQUEST_METHOD_ERROR_MSG      = '请求方式错误';
     const REQUEST_URL_ERROR             = 110005;
     const REQUEST_URL_ERROR_MSG         = '请求URL错误';
+
+
+    //订单相关
+
+    const ORDER_NOT_FOUND               = 210001;
+    const ORDER_NOT_FOUND_MSG           = '订单不存在';
+    const ORDER_REDEEM_FAILED           = 210002;
+    const ORDER_REDEEM_FAILED_MSG       = '订单验证失败';
+
+    //用户相关
+    const USER_UNBIND_DEVICE_FAILED     = 510001;
+    const USER_UNBIND_DEVICE_FAILED_MSG = '用户解绑设备失败';
+    const USER_LOCKED_FAILED            = 510002;
+    const USER_LOCKED_FAILED_MSG        = '用户封号/解封失败';
+
+    //活动相关
+    const CAMPAIGN_BRANCH_NOT_FOUND            = 610001;
+    const CAMPAIGN_BRANCH_NOT_FOUND_MSG        = '活动商品不存在';
+    const CAMPAIGN_BRANCH_OFFLINE_FAILED       = 610002;
+    const CAMPAIGN_BRANCH_OFFLINE_FAILED_MSG   = '活动商品下线失败';
 }

@@ -6,19 +6,20 @@
  */
 class LogUserDeviceUnbundModel extends DWDData_Db {
   
-    protected $dbTable           = 'log_user_device_unbund';
-
-    const  FILED_COMMON_TYPE     = 0;
-
-    protected $fieldTypes        = array(
-                                       array( 'user_id', 'udid', 'os', 'app_version', 'created_at', 'updated_at' ),
-                                   );
+    protected $dbTable           = 'log_user_device_unbund'; 
 
     /**
      *添加用户解绑记录
      */
     public function addUnbindRecord( $unbindInfo ) {
-    	 
-         return  $this->insert( $unbindInfo );
+    	  
+         $this->user_id         = $unbindInfo['user_id'];
+         $this->op_user_id      = $unbindInfo['op_user_id'];
+         $this->udid            = $unbindInfo['udid'];
+         $this->reasonType      = $unbindInfo['reasonType'];
+         $this->remark_json     = $unbindInfo['remark_json'];
+         $this->remark          = $unbindInfo['remark'];
+         $this->created_at      = date('Y-m-d H:i:s');
+         return  $this->insert();
     }
 }
