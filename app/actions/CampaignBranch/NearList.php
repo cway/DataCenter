@@ -19,8 +19,11 @@ class NearListAction extends DWDData_Action
         $conditions                    =  array( 
                                                 'loc'        => array( 
                                                                     '$near' => array(
-                                                                                  $lat,
-                                                                                  $lng,
+                                                                                  '$geometry' => array
+                                                                                                 (
+                                                                                                    'type'        => 'Point',
+                                                                                                    'coordinates' => array( $lng, $lat ),
+                                                                                                 ),
                                                                                )
                                                                  ),
                                                 'zone_id'     => $zoneId,
