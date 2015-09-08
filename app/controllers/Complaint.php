@@ -7,6 +7,7 @@ class ComplaintController extends DWDData_Base {
 
 	public $actions = array(
                         'taglist'         => 'actions/Complaint/TagList.php',
-                        'history'	      => 'actions/Complaint/History.php'
+                        'history'	      => 'actions/Complaint/History.php',
+                        'submit'		  => 'actions/Complaint/Submit.php',
                       );
 }

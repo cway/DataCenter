@@ -10,8 +10,7 @@ class BrandInfoAction extends DWDData_Action
     protected $_isCheckAuth    = false;
 
     public function _exec()
-    {
-        
+    { 
         $brandId           = $this->getRequest()->getParam('brandId');
         $m_brand           = new BrandModel; 
         $res               = $m_brand->getBrand( $brandId );

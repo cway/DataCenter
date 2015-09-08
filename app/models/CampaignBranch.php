@@ -39,4 +39,25 @@ class CampaignBranchModel extends DWDData_Db {
         $campaignBranch['updated_at']  = date('Y-m-d, H:i:s');
         return $this->update( $campaignBranch );
     }
+
+    /**
+     * 获取活动
+     */
+    public function getCampaignBranchs( $campaignBranchIds, $option = array(), $fields = self::FILED_COMMON_TYPE )
+    {
+        if( false == is_array( $fields ) ){
+            $fields              = intval( $fields );
+            if( $fields < 0 || $fields >= count( $this->fieldTypes ) ){
+                $fields          = self::FILED_COMMON_TYPE;
+            }
+
+            $fields              = $this->fieldTypes[$fields];
+        }
+        $rowNums          = array( ); 
+        $rowNums[0]       = isset( $option['offset'] ) ? intval( $option['offset'] ) : $this->defaultOffset;
+        $rowNums[1]       = isset( $option['limit'] )  ? intval( $option['limit'] )  : $this->pageLimit;
+
+        return $this->where( 'id', $campaignBranchIds, 'in' )->get( $rowNums, $fields );
+    }
+ 
 }

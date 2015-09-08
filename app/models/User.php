@@ -14,12 +14,20 @@ class UserModel extends DWDData_Db {
     						          // array( 'username', 'zone_id', 'email', 'enabled', 'mobile', 'balance', 'coin', 'created_at', 'updated_at' ),
     					               array( 'id', 'username', 'email', 'enabled', 'last_login', 'locked', 'expired', 'credentials_expired', 'mobile', 'avatar', 'balance', 'coin', 'coin_total_gain', 'coin_rank_percent', 'share_code', 'openim_account', 'created_at', 'updated_at' ),
                                    );
-    protected $dbFields          = array( 'id', 'username', 'email', 'enabled', 'last_login', 'locked', 'expired', 'credentials_expired', 'locked_at', 'lock_date' ,'mobile', 'avatar', 'balance', 'coin', 'coin_total_gain', 'coin_rank_percent', 'share_code', 'openim_account', 'created_at', 'updated_at' );
+    protected $dbFields          = array(
+                                     'id'          => array( 'int', 'required' ),
+                                     'username'    => array( 'text' ),
+                                     'updated_at'  => array( 'datetime' ),
+                                     'locked'      => array( 'int' ),
+                                     'locked_at'   => array( 'datetime' ),
+                                     'lock_date'   => array( 'datetime' ),
+                                   );//array( 'id', 'username', 'email', 'enabled', 'last_login', 'locked', 'expired', 'credentials_expired', 'locked_at', 'lock_date' ,'mobile', 'avatar', 'balance', 'coin', 'coin_total_gain', 'coin_rank_percent', 'share_code', 'openim_account', 'created_at', 'updated_at' );
 
     /**
      *获取用户信息
      */
-    public function getUser( $userId, $fields = self::FILED_COMMON_TYPE ) {
+    public function getUser( $userId, $fields = self::FILED_COMMON_TYPE ) 
+    {
     	if( false == is_array( $fields ) ){
     		$fields              = intval( $fields );
     		if( $fields < 0 || $fields >= count( $this->fieldTypes ) ){
@@ -33,9 +41,30 @@ class UserModel extends DWDData_Db {
     }
 
     /**
+     *获取用户信息
+     */
+    public function getUsers( $userIds,  $option = array(), $fields = self::FILED_COMMON_TYPE ) 
+    {
+        if( false == is_array( $fields ) ){
+            $fields              = intval( $fields );
+            if( $fields < 0 || $fields >= count( $this->fieldTypes ) ){
+                $fields          = self::FILED_COMMON_TYPE;
+            }
+
+            $fields              = $this->fieldTypes[$fields];
+        }
+ 
+        $rowNums                 = array( ); 
+        $rowNums[0]              = isset( $option['offset'] ) ? intval( $option['offset'] ) : $this->defaultOffset;
+        $rowNums[1]              = isset( $option['limit'] )  ? intval( $option['limit'] )  : $this->pageLimit;
+ 
+        return $this->where( 'id', $userIds, 'in' )->get( $rowNums, $fields ); 
+    }
+        
+    /**
      *根据电话获取用户信息
      */
-    public function getUserByMobile( $userId, $fields = self::FILED_COMMON_TYPE ) {
+    public function getUserByMobile( $mobile, $fields = self::FILED_COMMON_TYPE ) {
         if( false == is_array( $fields ) ){
             $fields              = intval( $fields );
             if( $fields < 0 || $fields >= count( $this->fieldTypes ) ){
@@ -53,7 +82,7 @@ class UserModel extends DWDData_Db {
      */
     public function updateUser( $user ) {
 
-        $user['updated_at']      = date('Y-m-d, H:i:s');
+        $user['updated_at']      = date('Y-m-d H:i:s');
         return $this->update( $user );
     }
 
@@ -62,11 +91,18 @@ class UserModel extends DWDData_Db {
      */
     public function updateUserInfo( $userId, $updates ) {
 
-        $user                    = $this->byId( $userId );
-        foreach( $updates as $key => $value ){
-            $user[$key]          = $value;
-        }
-
-        return $this->updateUser( $user );
+        $userINfo                = $this->byId( $userId );
+        $data                    = array(
+                                     'id' => $userId,
+                                   );
+        foreach( $this->dbFields as  $key => $value ){
+            if( isset( $updates[$key] ) ){
+               $data[$key]       = $updates[$key];     
+            } 
+        } 
+        $data['updated_at']      = date('Y-m-d H:i:s');
+ 
+        $res                     = $this->update( $data ); 
+        return $res;
     }
 }

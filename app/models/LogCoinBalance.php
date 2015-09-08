@@ -22,7 +22,7 @@ class LogCoinBalanceModel extends DWDData_Db {
     CONST TYPE_ORDER_FEEDBACK_CORRECT = 9;       // 9: 订单纠错通过奖励
 
     protected $fieldTypes             = array(
-                                            array( 'user_id', 'type', 'amount', 'created_at', 'current_balance' ),
+                                            array( 'user_id', 'type', 'amount', 'created_at', 'current_balance', 'remark' ),
                                         );
 
     /**

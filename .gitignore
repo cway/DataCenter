@@ -3,6 +3,7 @@
 /app/logs/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
+logs/*
 
 # Managed by Composer
 /vendor/
@@ -27,6 +28,7 @@
 *.swp
 *.swo
 *.bak
+*.ini
 
 Gemfile.lock
 

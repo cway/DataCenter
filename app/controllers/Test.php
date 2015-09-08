@@ -10,7 +10,7 @@ class TestController extends DWDData_Base {
  
   public function indexAction() 
   {
-      $data           = array(
+     /* $data           = array(
                                     array(
                                         'url'    => 'http://10.0.0.10:12306/user/userInfo',
                                         'data'   => array(
@@ -42,7 +42,13 @@ class TestController extends DWDData_Base {
                                 );
 
         $res                = DWDData_Http::MutliCall( $data );
-        var_dump( $res );exit;
+        var_dump( $res );exit; */
+        $mongo      =  MongoObject::getInstance();
+        $collection =  $mongo->getCollection('demo'); //->insert(array('id' => 'abc' ) );
+        $data       =  $mongo->find( array('loc' => array(  '$near' =>  array(113.182, 69.111) ) ) );
+
+        $mongo->close();
+        var_dump( iterator_to_array( $data ) );
   }
 } 
   

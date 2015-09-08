@@ -14,4 +14,8 @@ class DWDData_Const
 	const DEFAULT_PAGE_NUM			   = 1;
 	const DEFAULT_OFFSET			   = 0;
 	const MAX_PAGE_LIMIT               = 150;
+	const ORDER_BY_ASC_ID              = 0;
+	const ORDER_BY_ASC                 = 'asc';
+	const ORDER_BY_DESC_ID             = 1;
+	const ORDER_BY_DESC                = 'desc';
 }

@@ -1,10 +1,10 @@
 <?php
 
-class Order_CampaignBranch_Request extends DWDData_Request
+class Campaignbranch_Offline_Request extends DWDData_Request
 {
     public function checkParams()
     {
-        if ($_SERVER['REQUEST_METHOD'] != 'GET') {
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 
             throw new DWDData_Exception(DWDData_ErrorCode::REQUEST_METHOD_ERROR_MSG, DWDData_ErrorCode::REQUEST_METHOD_ERROR);
         }

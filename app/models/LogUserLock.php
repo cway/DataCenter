@@ -10,8 +10,10 @@ class LogUserLockModel extends DWDData_Db {
 
     const  FILED_COMMON_TYPE     = 0;
 
+    const LOCK_TYPE              = 1;
+
     protected $fieldTypes        = array(
-                                       array( 'user_id', 'operator_user_id', 'type', 'lock_date', 'note' ,'create_at' ),
+                                       array( 'user_id', 'operator_user_id', 'type', 'reason_type' ,'lock_date', 'note' ,'create_at' ),
                                    );
 
     /**
@@ -24,14 +26,14 @@ class LogUserLockModel extends DWDData_Db {
          if( isset( $option['needPagination'] ) && true == $option['needPagination'] ){
             $this->pageLimit  = isset( $option['limit'] )   ? intval( $option['limit'] )   : $this->pageLimit;
             $pageNum          = isset( $option['pageNum'] ) ? intval( $option['pageNum'] ) : $this->startPage;
-            $res['list']      = $this->where( 'user_id', $userId )->paginate( $pageNum, $this->fieldTypes[self::FILED_COMMON_TYPE] );
+            $res['list']      = $this->where( 'type', self::LOCK_TYPE )->where( 'user_id', $userId )->paginate( $pageNum, $this->fieldTypes[self::FILED_COMMON_TYPE] );
             $res['totalPage'] = $this->totalPages;
             $res['totalCnt']  = intval( $this->totalCount );
          } else {
             $rowNums          = array( ); 
             $rowNums[0]       = isset( $option['offset'] ) ? intval( $option['offset'] ) : $this->defaultOffset;
             $rowNums[1]       = isset( $option['limit'] )  ? intval( $option['limit'] )  : $this->pageLimit;
-            $res['list']      = $this->where( 'user_id', $userId )->get( $rowNums, $this->fieldTypes[self::FILED_COMMON_TYPE] );
+            $res['list']      = $this->where( 'type', self::LOCK_TYPE )->where( 'user_id', $userId )->get( $rowNums, $this->fieldTypes[self::FILED_COMMON_TYPE] );
          }
         
          if( null == $res['list'] ){
@@ -45,7 +47,7 @@ class LogUserLockModel extends DWDData_Db {
      *获取用户封号记录数
      */
     public function getUserLockedRecordsCnt( $userId ){
-         return  $this->where( 'user_id', $userId )->count();
+         return  $this->where( 'type', self::LOCK_TYPE )->where( 'user_id', $userId )->count();
     } 
 
     /**

@@ -13,12 +13,12 @@ class OrderInfoAction extends DWDData_Action
     {
         
         $orderId           = $this->getRequest()->getParam('orderId');
-        $redeemNumber      = $this->getRequest()->getParam('redeemNumer');
+        $redeemNumber      = $this->getRequest()->getParam('redeemNumber');
         $m_productOrder    = new ProductOrderModel;
         $orderInfo         = array();
         if( false == empty( $orderId ) ){
             $orderInfo     = $m_productOrder->getOrder( $orderId );
-        } else if( false == empty( $redeemNumber ) ){
+        } else if( false == empty( $redeemNumber ) ){ 
             $orderInfo     = $m_productOrder->getOrderByRedeemNumber( $redeemNumber );
         } 
        

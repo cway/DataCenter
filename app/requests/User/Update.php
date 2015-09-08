@@ -1,6 +1,6 @@
 <?php
 
-class User_UnbindDevice_Request extends DWDData_Request
+class User_Update_Request extends DWDData_Request
 {
     public function checkParams()
     {
@@ -9,10 +9,12 @@ class User_UnbindDevice_Request extends DWDData_Request
             throw new DWDData_Exception(DWDData_ErrorCode::REQUEST_METHOD_ERROR_MSG, DWDData_ErrorCode::REQUEST_METHOD_ERROR);
         }
 
-        if ($this->getParam('userId') == null || $this->getParam('opUserId') == null || $this->getParam('reasonType') == null ){
+        $userId     = $this->getParam('userId');  
 
+        if( $userId == null || false == is_numeric( $userId ) ){
             throw new DWDData_Exception(DWDData_ErrorCode::PARAMS_ERROR_MSG, DWDData_ErrorCode::PARAMS_ERROR);
-        } 
+        }
+ 
 
         return parent::checkParams();
     }

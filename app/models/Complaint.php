@@ -115,4 +115,27 @@ class ComplaintModel extends DWDData_Db {
          
          return $res;
     }
+
+    /**
+     *添加投诉
+     */
+    public function addComplaint( $complaintInfo )
+    {
+        $this->item_id         = $complaintInfo['itemId'];
+        $this->item_name       = $complaintInfo['itemName'];
+        $this->order_id        = $complaintInfo['orderId']; 
+        $this->branch_id       = $complaintInfo['branchId'];
+        $this->branch_name     = $complaintInfo['branchName'];
+        $this->saler_id        = $complaintInfo['salerId'];
+        $this->type_id         = $complaintInfo['typeId'];
+        $this->status          = $complaintInfo['status'];
+        $this->description     = $complaintInfo['description'];
+        $this->category_id     = $complaintInfo['categoryId'];
+        $this->mobile          = $complaintInfo['mobile'];
+        $this->updated_at      = date('Y-m-d H:i:s');
+        $this->created_at      = date('Y-m-d H:i:s');
+        $res =  $this->insert(); 
+        
+        return $res;
+    }
 }

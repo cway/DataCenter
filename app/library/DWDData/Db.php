@@ -26,9 +26,13 @@ class DWDData_Db extends dbObject
         foreach( $conditions as $condition ){
             switch ( $condition['op'] ) {
                 case 'IN':
+                case 'in':
                 case 'NOT IN':
+                case 'not in':
                 case 'BETWEEN':
-                case 'NOT BWTWEEN':
+                case 'between':
+                case 'NOT BETWEEN':
+                case 'not between':
                     $this->where( $condition['field'], $condition['values'], $condition['op'] );
                     break;
                 case '>=':
@@ -41,13 +45,20 @@ class DWDData_Db extends dbObject
                     break;
                 case '=':
                 case 'eq':
+                case 'EQ':
                     $this->where( $condition['field'], $condition['value'] );
                     break;
                 case 'col_eq':
+                case 'COL_EQ':
                     $this->where( $condition['field'] . ' = ' . $condition['value'] );
                     break;    
                 case 'join':
+                case 'JOIN':
                     $this->join( $condition['modelName'], $condition['joinKey'], $condition['joinType'] ); 
+                    break; 
+                case 'group':
+                case 'GROUP':
+                    $this->groupBy( $condition['field'] ); 
                     break;  
                 default:
                     break;

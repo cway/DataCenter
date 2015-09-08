@@ -4,14 +4,22 @@
  * @desc BranchModel
  * @author cway
  */
-class BranchModel extends DWDData_Db {
-  
-    protected $dbTable           = 'branch'; 
+class BranchModel extends DWDData_Db { 
+
+    protected $dbTable           = 'branch';
 
     protected $fieldTypes        = array( 
-    					               array( 'id', 'name', 'address', 'zone_id', 'redeem_type' ,'brand_id', 'lat', 'lng', 'tel', 'maintainer_id' ,'saler_id', 'created_at', 'updated_at' ),
+    					               array( 'id', 'name', 'address', 'zone_id', 'redeem_type', 'redeem_time' ,'brand_id', 'lat', 'lng', 'tel', 'maintainer_id' ,'saler_id', 'created_at', 'updated_at' ),
                                    );
-
+    protected $dbFields          = array(
+                                     'id'          => array( 'int', 'required' ),
+                                     'name'        => array( 'text' ),
+                                     'address'     => array( 'text' ),
+                                     'redeem_type' => array( 'int' ),
+                                     'redeem_time' => array( 'text' ),
+                                     'lat'         => array(  ),
+                                     'lng'         => array(  ),
+                                   );  
     /**
      *获取门店信息
      */
@@ -27,23 +35,30 @@ class BranchModel extends DWDData_Db {
 
         return  $this->byId( $branchId, $fields );
     } 
+
     /**
      *更新门店信息
      */
     public function updateBranch( $branch ) {
+        $branch['updated_at']    = date('Y-m-d, H:i:s');
         return $this->update( $branch );
     }
 
     /**
-     *更新用户信息
+     *更新门店信息
      */
     public function updateBranchInfo( $branchId, $updates ) {
 
-        $branch                  = $this->byId( $branchId );
-        foreach( $updates as $key => $value ){
-            $branch[$key]        = $value;
+        $branchInfo              = $this->byId( $branchId );
+        $data                    = array(
+                                     'id' => $branchId,
+                                   );
+        foreach( $this->dbFields as $key => $value ){
+            if( isset( $updates[$key] ) ){
+               $data[$key]       = $updates[$key];     
+            } 
         }
-
-        return $this->updateBranch( $branch );
+        $data['updated_at']      = date('Y-m-d H:i:s');
+        return $this->update( $data );
     }
 }
