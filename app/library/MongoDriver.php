@@ -127,8 +127,8 @@ class MongoDriver {
 
     public function count( $condition ){
         
-       return $this->_collection->find( $condition )->count( 10000000 );
-   
+      return $this->_collection->count($condition);
+       
     }
 
     public function findOne( $condition ){

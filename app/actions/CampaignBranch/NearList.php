@@ -16,31 +16,32 @@ class NearListAction extends DWDData_Action
         $zoneId                        = $this->getRequest()->getParam('zoneId');
         $categoryId                    = $this->getRequest()->getParam('categoryId');
 
-        $conditions                    =  array( 'loc'        => array( 
+        $conditions                    =  array( 
+                                                'loc'        => array( 
                                                                     '$near' => array(
                                                                                   $lat,
                                                                                   $lng,
                                                                                )
                                                                  ),
-                                                'update_time' => array(
-                                                                   '$gt'    => strtotime( date("Y-m-d 00:00:00") ),
-                                                                 ),
+                                                'zone_id'     => $zoneId,
                                           );
+
+        $cntConditions                 = array(
+                                                'zone_id'     => $zoneId,
+                                         );
                                          
         if( $categoryId != null ){
-            $conditions['categories']  = $categoryId;
+            $conditions['categories']     = $categoryId;
+            $cntConditions['categories']  = $categoryId;
         }
-
-        if( $zoneId != null ){
-            $conditions['zone_id']     = $zoneId;
-        }
+ 
 
         $mongo                         =  MongoObject::getInstance();
         $collection                    =  $mongo->getCollection('online_campaigns');
         $options                       =  self::_initQueryOptions();
        
         $campaignBranchs               =  $mongo->find(  $conditions, $options );
-        $totalCnt                      =  $mongo->count( $conditions );
+        $totalCnt                      =  $mongo->count( $cntConditions );
         $totalPage                     =  ceil( $totalCnt / $options['limit'] ); 
 
         $res                           =  array(

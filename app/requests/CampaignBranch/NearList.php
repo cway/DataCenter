@@ -12,7 +12,7 @@ class Campaignbranch_NearList_Request extends DWDData_Request
             throw new DWDData_Exception(DWDData_ErrorCode::REQUEST_METHOD_ERROR_MSG, DWDData_ErrorCode::REQUEST_METHOD_ERROR);
         }
 
-        if ($this->getParam('lat') == null || $this->getParam('lng') == null ){
+        if ($this->getParam('lat') == null || $this->getParam('lng') == null || $this->getParam('zoneId') == null ){
 
             throw new DWDData_Exception(DWDData_ErrorCode::PARAMS_ERROR_MSG, DWDData_ErrorCode::PARAMS_ERROR);
         }  
