@@ -30,6 +30,8 @@ class ErrorController extends Yaf_Controller_Abstract {
 			return self::_renderJson( array(), DWDData_ErrorCode::REQUEST_URL_ERROR, DWDData_ErrorCode::REQUEST_URL_ERROR_MSG );
 		}
 
+		$logger     = new DWDData_Logger();
+        $logger->error( $exception->getMessage(), $exception->getCode() );
 		return self::_renderJson( array() );
 		//5. render by Yaf 
 	}

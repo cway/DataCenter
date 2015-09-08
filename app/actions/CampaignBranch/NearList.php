@@ -16,13 +16,16 @@ class NearListAction extends DWDData_Action
         $zoneId                        = $this->getRequest()->getParam('zoneId');
         $categoryId                    = $this->getRequest()->getParam('categoryId');
 
-        $conditions                    =  array( 'loc' => array( 
-                                                            '$near' => array(
-                                                                          $lat,
-                                                                          $lng,
-                                                                       )
-                                                        )
-                                          ); 
+        $conditions                    =  array( 'loc'        => array( 
+                                                                    '$near' => array(
+                                                                                  $lat,
+                                                                                  $lng,
+                                                                               )
+                                                                 ),
+                                                'update_time' => array(
+                                                                   '$gt'    => strtotime( date("Y-m-d 00:00:00") ),
+                                                                 ),
+                                          );
                                          
         if( $categoryId != null ){
             $conditions['categories']  = $categoryId;

@@ -145,8 +145,7 @@ class OrderListAction extends DWDData_Action
     }
 
     public function _exec()
-    {
-        
+    { 
         $branchId              = $this->getRequest()->getParam('branchId');
         $m_productOrder        = new ProductOrderModel;
         $options               = self::_initQueryOptions();

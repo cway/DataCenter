@@ -127,7 +127,7 @@ class MongoDriver {
 
     public function count( $condition ){
         
-       return $this->_collection->find( $condition )->count();
+       return $this->_collection->find( $condition )->count( 10000000 );
    
     }
 

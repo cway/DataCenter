@@ -89,15 +89,17 @@ abstract class DWDData_Action extends Yaf_Action_Abstract
             $this->after();
         }
         catch (DWDData_Exception $e) {
-            $psResult  = new DWDData_Result();
+            $psResult   = new DWDData_Result();
             $psResult->setErrno( $e->getCode() );
             $psResult->setErrmsg( $e->getMessage() );
             $this->_outputFormat == 'json' ? $this->renderErrorJson( $psResult->getResult() ) : $this->renderErrorPage( $psResult->getResult() );
         }
         catch (Exception $e) {
-            $psResult  = new DWDData_Result();
+            $psResult   = new DWDData_Result();
             $psResult->setErrno( DWDData_ErrorCode::SERVER_ERROR );
             $psResult->setErrmsg( DWDData_ErrorCode::SERVER_ERROR_MSG );
+            $logger     = DWDData_Logger::getInstance();
+            $logger->error( $e->getMessage(), $e->getCode() );
             $this->_outputFormat == 'json' ? $this->renderErrorJson( $psResult->getResult() ) : $this->renderErrorPage( $psResult->getResult() );
         }
     }
