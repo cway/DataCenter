@@ -15,19 +15,14 @@ class BannerModel extends DWDData_Db {
     /**
      *获取Banner列表/
      */
-    public function getBanners( $option = array() ) {
+    public function getBanners( $conditions, $option = array() ) {
     	 
          $res                 = array();
            
+         $this->_initConditions( $conditions );
          if( isset( $option['needPagination'] ) && true == $option['needPagination'] ){
             $this->pageLimit  = isset( $option['limit'] )   ? intval( $option['limit'] )   : $this->pageLimit;
             $pageNum          = isset( $option['pageNum'] ) ? intval( $option['pageNum'] ) : $this->startPage;
-            $this->where('enabled', self::ACTIVE);
-             
-            if( isset( $option['orderBy'] ) ){
-
-               $this->orderBy( $option['orderBy'], $option['orderByType'] );
-            }
             $res['list']      = $this->paginate( $pageNum, $this->fieldTypes[self::FILED_COMMON_TYPE] );
             $res['totalPage'] = $this->totalPages;
             $res['totalCnt']  = intval( $this->totalCount );
@@ -35,11 +30,6 @@ class BannerModel extends DWDData_Db {
             $rowNums          = array(); 
             $rowNums[0]       = isset( $option['offset'] ) ? intval( $option['offset'] ) : $this->defaultOffset;
             $rowNums[1]       = isset( $option['limit'] )  ? intval( $option['limit'] )  : $this->pageLimit;
-            $this->where('enabled', self::ACTIVE);
-        
-            if( isset( $option['orderBy'] ) ){
-               $this->orderBy( $option['orderBy'], $option['orderByType'] );
-            }
             $res['list']      = $this->get( $rowNums, $this->fieldTypes[self::FILED_COMMON_TYPE] );
          }
         

@@ -60,6 +60,10 @@ class DWDData_Db extends dbObject
                 case 'GROUP':
                     $this->groupBy( $condition['field'] ); 
                     break;  
+                case 'ORDER BY':
+                case 'order by':
+                    $this->orderBy( $condition['field'], $condition['type'] );
+                    break;
                 default:
                     break;
             }

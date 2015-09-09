@@ -54,11 +54,6 @@ abstract class DWDData_Action extends Yaf_Action_Abstract
 
         if( null != $this->getRequest()->getParam('pageNum') && intval( $this->getRequest()->getParam('pageNum') ) > 1 ){
             $options['offset']         = ( intval( $this->getRequest()->getParam('pageNum') ) - 1 ) * $options['limit'];
-        }
-
-        if( null != $this->getRequest()->getParam('sort') ){
-            $options['orderBy']        = $this->getRequest()->getParam('sort');
-            $options['orderByType']    = $this->getRequest()->getParam('sortType') == DWDData_Const::ORDER_BY_ASC_ID ? DWDData_Const::ORDER_BY_ASC : DWDData_Const::ORDER_BY_DESC; 
         } 
 
         if( null != $this->getRequest()->getParam('needPagination') ){

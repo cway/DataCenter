@@ -434,7 +434,7 @@ class dbObject {
         $offset = $this->pageLimit * ($page - 1);
         $this->db->withTotalCount();
         $results = $this->get (Array ($offset, $this->pageLimit), $fields);
-        $this->totalPages = round ($this->db->totalCount / $this->pageLimit);
+        $this->totalPages = ceil ($this->db->totalCount / $this->pageLimit);
 
         return $results;
     }

@@ -18,4 +18,8 @@ class DWDData_Const
 	const ORDER_BY_ASC                 = 'asc';
 	const ORDER_BY_DESC_ID             = 1;
 	const ORDER_BY_DESC                = 'desc';
+	const ENABLED                      = 1;
+	const DISABLED                     = 0;
+	const ACTIVE 					   = 1;
+	const INACTIVE                     = 0;
 }

@@ -1,13 +1,13 @@
 <?php
 /**
  * @file    CampaignBranchList.php
- * @des     获取门店信息
+ * @des     获取活动信息
  * @author  caowei
  *
  */
 class CampaignBranchListAction extends DWDData_Action
 {
-    protected $_isCheckAuth            = false; 
+    protected $_isCheckAuth            = false;  
 
     public function _exec()
     { 
@@ -20,8 +20,11 @@ class CampaignBranchListAction extends DWDData_Action
         									'list' => array(),
         								 );
 
-        foreach ($data as $campaignBranchInfo) {
-        	$campaignBranchs['list'][$campaignBranchInfo['id']] = $campaignBranchInfo;
+        foreach ($data as $campaignBranchInfo) { 
+
+            if( $campaignBranchInfo['enabled'] == DWDData_Const::ENABLED ){
+        	    $campaignBranchs['list'][$campaignBranchInfo['id']] = $campaignBranchInfo;
+            }
         }
 
         $this->renderSuccessJson( array( 'data' => $campaignBranchs ) );
