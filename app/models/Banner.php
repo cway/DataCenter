@@ -9,7 +9,7 @@ class BannerModel extends DWDData_Db {
     protected $dbTable           = 'banner'; 
 
     protected $fieldTypes        = array(
-                                       array( 'id', 'title', 'url', 'weight','image_key', 'style', 'event_id', 'need_login'),
+                                       array( 'id', 'title', 'url', 'weight','image_key', 'style', 'event_id', 'start_time', 'end_time','need_login'),
                                    );
     const ACTIVE                 = 1;
     /**

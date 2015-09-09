@@ -12,6 +12,7 @@ class CampaignBranchListAction extends DWDData_Action
     public function _exec()
     { 
         $campaignBranchIds             = $this->getRequest()->getParam('campaignBranchIds');
+        $enabled                       = $this->getRequest()->getParam("enabled");
         $m_campaignbranch              = new CampaignBranchModel;
         $options                       = self::_initQueryOptions();
         $data                          = $m_campaignbranch->getCampaignBranchs( $campaignBranchIds, $options );
@@ -22,8 +23,10 @@ class CampaignBranchListAction extends DWDData_Action
 
         foreach ($data as $campaignBranchInfo) { 
 
-            if( $campaignBranchInfo['enabled'] == DWDData_Const::ENABLED ){
-        	    $campaignBranchs['list'][$campaignBranchInfo['id']] = $campaignBranchInfo;
+            if( DWDData_Const::ENABLED == $enabled  ){
+        	    if($campaignBranchInfo['enabled'] == DWDData_Const::ENABLED ){
+                    $campaignBranchs['list'][$campaignBranchInfo['id']] = $campaignBranchInfo;
+                }
             }
         }
 
