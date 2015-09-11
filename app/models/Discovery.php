@@ -12,6 +12,7 @@ class DiscoveryModel extends DWDData_Db {
                                        array( 'id', 'url', 'title', 'image_key', 'type', 'need_login'),
                                    );
     const ACTIVE                 = 1;
+    
     /**
      *获取Discovery列表
      */
