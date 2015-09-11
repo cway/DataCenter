@@ -39,7 +39,7 @@ class DWDData_Logger
      * Path to the log file
      * @var string
      */
-    static private $_logFilePath = '/Users/cway/Workspace/DataCenter/logs/DWDData_Center.log.';
+    static private $_logFilePath = '/ace/log/iqg/DWDData_Center.log.';
 
     private static $arrInstance  = array();
     public static $current_instance;
