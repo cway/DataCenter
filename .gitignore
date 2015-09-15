@@ -4,6 +4,7 @@
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 logs/*
+conf/*
 
 # Managed by Composer
 /vendor/
