@@ -121,7 +121,7 @@ class MongoDriver {
        $offset              = isset( $option['offset'] ) ? intval( $option['offset'] ) : 0;
        $limit               = isset( $option['limit'] )  ? intval( $option['limit'] )  : 20; 
         
-       if( $option['sort'] ){
+       if( isset( $option['sort'] ) ){
             $sort           = array(
                                 $option['sort'] => -1,
                               );
