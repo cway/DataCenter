@@ -9,7 +9,7 @@ class OAuthModel extends DWDData_Db {
     protected $dbTable           = 'oauth';
 
     protected $fieldTypes        = array(
-                                       array( 'oauth_user_id', 'access_token', 'refresh_token', 'extra_info' ),
+                                       array( 'oauth_user_id', 'type', 'access_token', 'refresh_token', 'extra_info' ),
                                    );
 
     /**

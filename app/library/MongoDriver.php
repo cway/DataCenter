@@ -120,7 +120,19 @@ class MongoDriver {
         
        $offset              = isset( $option['offset'] ) ? intval( $option['offset'] ) : 0;
        $limit               = isset( $option['limit'] )  ? intval( $option['limit'] )  : 20; 
-   
+        
+       if( $option['sort'] ){
+            $sort           = array(
+                                $option['sort'] => -1,
+                              );
+
+            if( isset( $option['sortType'] ) && $option['sortType'] == DWDData_Const::ORDER_BY_ASC_ID ){
+                $sort[$option['sort']]   = 1;
+            }
+            
+            return $this->_collection->find( $condition )->sort($sort)->skip( $offset )->limit( $limit );
+       }
+
        return $this->_collection->find( $condition )->skip( $offset )->limit( $limit );
    
     }

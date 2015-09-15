@@ -20,13 +20,14 @@ class DeliveryListAction extends DWDData_Action
                                                                       array(
                                                                         'delivery_type'  => 3,
                                                                       ),  
-                                                                 ),
+                                                                 ), 
                                          );
  
         $mongo                         =  MongoObject::getInstance();
         $collection                    =  $mongo->getCollection('online_campaigns');
         $options                       =  self::_initQueryOptions();
-       
+        $options['sort']               =  'd_weight';
+        $options['sortType']           =  DWDData_Const::ORDER_BY_DESC_ID;        
         $campaignBranchs               =  $mongo->find(  $conditions, $options );
         $totalCnt                      =  $mongo->count( $conditions );
         $totalPage                     =  ceil( $totalCnt / $options['limit'] ); 
