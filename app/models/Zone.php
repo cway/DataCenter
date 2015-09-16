@@ -26,5 +26,18 @@ class ZoneModel extends DWDData_Db {
     	}
 
         return  $this->byId( $zoneId, $fields );
-    }  
+    }
+
+
+    /**
+     * 获取城市列表
+     */
+    public function getAll( $enabled = true ){
+
+        if( $enabled ){
+            return $this->where('enabled', DWDData_Const::ACTIVE)->get();
+        }
+
+        return $this->get();
+    }
 }

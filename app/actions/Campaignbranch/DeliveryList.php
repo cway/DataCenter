@@ -11,6 +11,8 @@ class DeliveryListAction extends DWDData_Action
     public function _exec()
     { 
         $zoneId                        = $this->getRequest()->getParam('zoneId');
+        $sort                          = $this->getRequest()->getParam('sort', 'd_weight');
+        $sortType                      = $this->getRequest()->getParam('sortType', DWDData_Const::ORDER_BY_DESC_ID);
         $conditions                    = array(
                                             'zone_id'         => intval( $zoneId ),
                                             '$or'             => array(
@@ -26,8 +28,8 @@ class DeliveryListAction extends DWDData_Action
         $mongo                         =  MongoObject::getInstance();
         $collection                    =  $mongo->getCollection('online_campaigns');
         $options                       =  self::_initQueryOptions();
-        $options['sort']               =  'd_weight';
-        $options['sortType']           =  DWDData_Const::ORDER_BY_DESC_ID;        
+        $options['sort']               =  $sort;
+        $options['sortType']           =  $sortType;       
         $campaignBranchs               =  $mongo->find(  $conditions, $options );
         $totalCnt                      =  $mongo->count( $conditions );
         $totalPage                     =  ceil( $totalCnt / $options['limit'] ); 

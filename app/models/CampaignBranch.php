@@ -56,7 +56,7 @@ class CampaignBranchModel extends DWDData_Db {
         $rowNums          = array( ); 
         $rowNums[0]       = isset( $option['offset'] ) ? intval( $option['offset'] ) : $this->defaultOffset;
         $rowNums[1]       = isset( $option['limit'] )  ? intval( $option['limit'] )  : $this->pageLimit;
-
+ 
         return $this->where( 'id', $campaignBranchIds, 'in' )->get( $rowNums, $fields );
     }
  

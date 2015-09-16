@@ -27,4 +27,16 @@ class SalerModel extends DWDData_Db {
 
         return  $this->byId( $salerId, $fields );
     }  
+
+    /**
+     * 获取销售列表
+     */
+    public function getAll( $enabled = true ){
+
+        if( $enabled ){
+            return $this->where('enabled', DWDData_Const::ACTIVE)->get();
+        }
+
+        return $this->get();
+    }
 }

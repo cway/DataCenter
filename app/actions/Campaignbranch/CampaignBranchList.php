@@ -27,6 +27,8 @@ class CampaignBranchListAction extends DWDData_Action
         	    if($campaignBranchInfo['enabled'] == DWDData_Const::ENABLED ){
                     $campaignBranchs['list'][$campaignBranchInfo['id']] = $campaignBranchInfo;
                 }
+            } else {
+                $campaignBranchs['list'][$campaignBranchInfo['id']] = $campaignBranchInfo;
             }
         }
 
