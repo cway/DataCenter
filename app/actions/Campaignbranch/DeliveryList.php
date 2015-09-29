@@ -23,6 +23,11 @@ class DeliveryListAction extends DWDData_Action
 
         $campaignBranchs               =  array();
         $totalCnt                      =  0;
+        $totalPage                     =  0;
+        $res                           =  array(
+                                              'list'      => array(),
+                                              'ids'       => array(),
+                                          );
 
         if( $options['sort'] == 'd_weight' ){
           $conditions                  =  array(
@@ -38,6 +43,11 @@ class DeliveryListAction extends DWDData_Action
                                           );
           $campaignBranchs             =  $mongo->find(  $conditions, $options );
           $totalCnt                    =  $mongo->count( $conditions );
+          foreach( $campaignBranchs as $campaignBranch  ){
+              unset( $campaignBranch['_id'] );
+              $res['list'][]           =  $campaignBranch;
+              $res['ids'][]            =  $campaignBranch['id'];
+          }
         } else {
           $conditions                  =  array( 
                                               array(
@@ -80,31 +90,30 @@ class DeliveryListAction extends DWDData_Action
           $campaignBranchs             = $m_campaignBranch->getCampaignBranchsByConditions( $conditions, $options, CampaignBranchModel::FILED_ONLY_ID_TYPE);
           $campaignBranchs             = $campaignBranchs['list'];
           $totalCnt                    = $m_campaignBranch->getCampaignBranchsCntByConditions( $conditions, $options, CampaignBranchModel::FILED_ONLY_ID_TYPE);
-          $ids                         = array();
           foreach ($campaignBranchs as $campaignBranch) {
-              $ids[]                   = $campaignBranch['id'];
+              $res['ids'][]            =  $campaignBranch['id'];
+          } 
+
+          if( !empty( $res['ids'] ) ){
+            $campaignBranchs           =  $mongo->find( array('id' => array( '$in' => $res['ids'] ) ) );
+            $campaignBranchs           =  iterator_to_array( $campaignBranchs );
+            foreach( $res['ids'] as $campaignBranchId ){
+                foreach ($campaignBranchs as $key => $campaignBranch) {
+                    if( $campaignBranch['id'] == $campaignBranchId ){
+                        unset( $campaignBranch['_id'] );
+                        $res['list'][] =  $campaignBranch;
+                        unset( $campaignBranchs[$key] );
+                        break;
+                    }
+                }
+            }
           }
-
-          $campaignBranchs             =  $mongo->find( array('id' => array( '$in' => $ids ) ) );
-        }
-         
-        
-        $totalPage                     =  ceil( $totalCnt / $options['limit'] ); 
-
-        $res                           =  array(
-                                              'list'      => array(),
-                                              'ids'       => array(),
-                                              'totalCnt'  => $totalCnt,
-                                              'totalPage' => $totalPage,
-                                          );
-
-        foreach( $campaignBranchs as $campaignBranch  ){
-            unset( $campaignBranch['_id'] );
-            $res['list'][]             = $campaignBranch;
-            $res['ids'][]              = $campaignBranch['id'];
         }
 
         $mongo->close();
+        $totalPage                     =  ceil( $totalCnt / $options['limit'] ); 
+        $res['totalCnt']               =  $totalCnt;
+        $res['totalPage']              =  $totalPage;
 
         $this->renderSuccessJson( array( 'data' => $res ) );
     }
