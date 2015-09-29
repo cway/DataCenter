@@ -41,6 +41,14 @@ class UserModel extends DWDData_Db {
     }
 
     /**
+     *获取商户用户
+     */
+    public function getBranchUser( $branchId, $fields = self::FILED_COMMON_TYPE )
+    { 
+       return $this->join( 'BranchUsersModel', 'id', 'inner' )->where( 'branch_users.branch_id', $branchId, '=' )->getOne();
+    }
+
+    /**
      *获取用户信息
      */
     public function getUsers( $userIds,  $option = array(), $fields = self::FILED_COMMON_TYPE ) 

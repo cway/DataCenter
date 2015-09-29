@@ -12,5 +12,6 @@ class CampaignbranchController extends DWDData_Base {
                         'nearlist'				=> 'actions/Campaignbranch/NearList.php',
                       	'toplist'				=> 'actions/Campaignbranch/TopList.php',
                       	'deliverylist'		    => 'actions/Campaignbranch/DeliveryList.php',
+                      	'detail'				=> 'actions/Campaignbranch/Detail.php',
                       );
 }

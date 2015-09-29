@@ -1,7 +1,7 @@
 <?php
 /**
  * @file    Update.php
- * @des     获取商户封号信息
+ * @des     更新商户信息
  * @author  caowei
  *
  */

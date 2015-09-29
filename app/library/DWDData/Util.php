@@ -13,7 +13,7 @@ abstract class DWDData_Util
         static $ip  =   NULL;
         if ($ip !== NULL) return $ip[$type];
 
-        if( $_SERVER['HTTP_X_REAL_IP']) {//nginx 代理模式下，获取客户端真实IP
+        if( isset( $_SERVER['HTTP_X_REAL_IP'] ) ) {//nginx 代理模式下，获取客户端真实IP
             $ip     =   $_SERVER['HTTP_X_REAL_IP']; 
 
         }else if( isset($_SERVER['HTTP_CLIENT_IP']) ) {//客户端的ip
@@ -30,6 +30,7 @@ abstract class DWDData_Util
         }else{
             $ip     =   $_SERVER['REMOTE_ADDR'];
         }
+        
         // IP地址合法验证
         $long = sprintf("%u",ip2long($ip));
         $ip   = $long ? array($ip, $long) : array('0.0.0.0', 0);

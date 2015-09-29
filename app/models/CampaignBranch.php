@@ -26,7 +26,7 @@ class CampaignBranchModel extends DWDData_Db {
 
     		$fields              = $this->fieldTypes[$fields];
     	}
-
+ 
         return  $this->byId( $campaignBranchId, $fields );
     }
 
@@ -58,6 +58,23 @@ class CampaignBranchModel extends DWDData_Db {
         $rowNums[1]       = isset( $option['limit'] )  ? intval( $option['limit'] )  : $this->pageLimit;
  
         return $this->where( 'id', $campaignBranchIds, 'in' )->get( $rowNums, $fields );
+    }
+
+    /**
+     * 获取商户活动
+     */
+    public function getBranchCampaigns( $conditions, $option = array(), $fields = self::FILED_COMMON_TYPE )
+    {
+        if( false == is_array( $fields ) ){
+            $fields              = intval( $fields );
+            if( $fields < 0 || $fields >= count( $this->fieldTypes ) ){
+                $fields          = self::FILED_COMMON_TYPE;
+            }
+
+            $fields              = $this->fieldTypes[$fields];
+        }
+        
+        return self::getListByConditions( $conditions, $option, $fields ); 
     }
  
 }

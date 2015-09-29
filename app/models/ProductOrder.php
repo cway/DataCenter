@@ -25,9 +25,9 @@ class ProductOrderModel extends DWDData_Db {
 
 
     protected $fieldTypes                   = array(
-    						                      array( 'id', 'campaign_branch_id', 'redeem_branch_id', 'user_id', 'price', 'status', 'type', 'trade_number', 'expire_date' ,'created_at', 'updated_at', 'refunded_at', 'redeem_time', 'redeem_number' ),
+    						                      array( 'id', 'campaign_branch_id', 'redeem_branch_id', 'user_id', 'price', 'status', 'type', 'trade_number', 'expire_date' ,'created_at', 'updated_at', 'refunded_at', 'redeem_time', 'redeem_number', 'item_name', 'branch_name' ),
     					                      );
-    protected $dbFields                     = array( 'id', 'campaign_branch_id', 'redeem_branch_id', 'user_id', 'price', 'status', 'type', 'trade_number', 'expire_date' ,'created_at', 'updated_at', 'refunded_at', 'redeem_number', 'redeem_time', 'redeem_user_id' );  
+    protected $dbFields                     = array( 'id', 'campaign_branch_id', 'redeem_branch_id', 'user_id', 'price', 'status', 'type', 'trade_number', 'expire_date' ,'created_at', 'updated_at', 'refunded_at', 'redeem_number', 'redeem_time', 'redeem_user_id', 'item_name', 'branch_name' );  
     /**
      *获取订单信息
      */
