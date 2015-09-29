@@ -33,7 +33,7 @@ class CampaignBranchListAction extends DWDData_Action
 
         $m_campaignBranch      = new CampaignBranchModel; 
         $options               = self::_initQueryOptions();
-        $res                   = $m_campaignBranch->getBranchCampaigns( $conditions, $options);
+        $res                   = $m_campaignBranch->getCampaignBranchsByConditions( $conditions, $options);
 
         $this->renderSuccessJson( array( 'data' => $res ) );
     }

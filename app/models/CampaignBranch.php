@@ -8,9 +8,12 @@ class CampaignBranchModel extends DWDData_Db {
   
     protected $dbTable                 = 'campaign_branch';
  	
+    const FILED_ONLY_ID_TYPE           = 1; 
+
     protected $fieldTypes              = array(
-					                      array( 'id', 'campaign_id', 'start_time', 'end_time', 'type', 'redeem_start_time', 'redeem_end_time', 'countdown_start_time', 'countdown_continue', 'start_price', 'floor_price', 'market_price', 'unlock_price', 'current_price', 'bargain_range', 'stock', '`left`', 'is_new', 'redeem_period', 'freeze_period', 'need_book',  'allow_take_out', 'refund_type', 'tips', 'like_count', 'enabled', 'created_at', 'updated_at' ),
-				                         );
+					                        array( 'id', 'campaign_id', 'start_time', 'end_time', 'type', 'redeem_start_time', 'redeem_end_time', 'countdown_start_time', 'countdown_continue', 'start_price', 'floor_price', 'market_price', 'unlock_price', 'current_price', 'bargain_range', 'stock', '`left`', 'is_new', 'redeem_period', 'freeze_period', 'need_book',  'allow_take_out', 'refund_type', 'tips', 'like_count', 'enabled', 'created_at', 'updated_at' ),
+				                            array( 'campaign_branch.id'),
+                                         );
     protected $dbFields                = array( 'id', 'campaign_id', 'start_time', 'end_time', 'type', 'redeem_start_time', 'redeem_end_time', 'countdown_start_time', 'countdown_continue', 'start_price', 'floor_price', 'market_price', 'unlock_price', 'current_price', 'bargain_range', 'stock', 'left', 'is_new', 'redeem_period', 'freeze_period', 'need_book',  'allow_take_out', 'refund_type', 'tips', 'like_count', 'enabled', 'created_at', 'updated_at' );
 
     /**
@@ -61,9 +64,9 @@ class CampaignBranchModel extends DWDData_Db {
     }
 
     /**
-     * 获取商户活动
+     * 根据条件获取活动
      */
-    public function getBranchCampaigns( $conditions, $option = array(), $fields = self::FILED_COMMON_TYPE )
+    public function getCampaignBranchsByConditions( $conditions, $option = array(), $fields = self::FILED_COMMON_TYPE )
     {
         if( false == is_array( $fields ) ){
             $fields              = intval( $fields );
@@ -75,6 +78,23 @@ class CampaignBranchModel extends DWDData_Db {
         }
         
         return self::getListByConditions( $conditions, $option, $fields ); 
+    }
+
+    /**
+     * 根据条件获取活动数量
+     */
+    public function getCampaignBranchsCntByConditions( $conditions, $option = array(), $fields = self::FILED_COMMON_TYPE )
+    {
+        if( false == is_array( $fields ) ){
+            $fields              = intval( $fields );
+            if( $fields < 0 || $fields >= count( $this->fieldTypes ) ){
+                $fields          = self::FILED_COMMON_TYPE;
+            }
+
+            $fields              = $this->fieldTypes[$fields];
+        }
+        
+        return self::getListCntByConditions( $conditions, $option, $fields ); 
     }
  
 }

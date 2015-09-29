@@ -64,6 +64,10 @@ class DWDData_Db extends dbObject
                 case 'order by':
                     $this->orderBy( $condition['field'], $condition['type'] );
                     break;
+                case 'custom_join':
+                    $joinStr =  $condition['joinLKey'] . " = " . $condition['joinRKey'];
+                    $this->getDB()->join ($condition['joinTable'], $joinStr, $condition['joinType']);
+                    break;
                 default:
                     break;
             }
