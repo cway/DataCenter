@@ -4,7 +4,7 @@ class Campaignbranch_DeliveryList_Request extends DWDData_Request
 {
     const MAX_BRANCH_CNT       = 100;
     const MIN_BRANCH_CNT       = 0;
-    static $SORT_ARR             = array( 'd_weight', 'price');
+    static $SORT_ARR             = array( 'd_weight', 'current_price');
 
     public function checkParams()
     {
@@ -21,7 +21,7 @@ class Campaignbranch_DeliveryList_Request extends DWDData_Request
         if( $this->getParam('sort') != null ){
             $sort = $this->getParam('sort');
 
-            if( false == in_array( self::SORT_ARR, $sort ) ){
+            if( false == in_array( $sort, self::$SORT_ARR ) ){
                 throw new DWDData_Exception(DWDData_ErrorCode::PARAMS_ERROR_MSG, DWDData_ErrorCode::PARAMS_ERROR);
             }
 
