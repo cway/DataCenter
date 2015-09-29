@@ -4,7 +4,7 @@ class Campaignbranch_DeliveryList_Request extends DWDData_Request
 {
     const MAX_BRANCH_CNT       = 100;
     const MIN_BRANCH_CNT       = 0;
-    const SORT_ARR             = array( 'd_weight', 'price');
+    static $SORT_ARR             = array( 'd_weight', 'price');
 
     public function checkParams()
     {
