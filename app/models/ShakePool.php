@@ -18,8 +18,7 @@ class ShakePoolModel extends DWDData_Db {
      */
     public function updateShakeInfos( $conditions,  $shakeInfo ) {
     	 
-        $this->_initConditions( $conditions ); 
-        $shakeInfos['updated_at']     = date('Y-m-d H:i:s');
+        $this->_initConditions( $conditions );  
 
         return  $this->getDB()->update( $this->dbTable, $shakeInfo );
     }  

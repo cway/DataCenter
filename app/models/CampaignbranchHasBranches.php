@@ -11,9 +11,18 @@ class CampaignbranchHasBranchesModel extends DWDData_Db {
     protected $primaryKey        = 'campaignbranch_id';
 
     /**
+     * 根据门店id获取活动id
+     */
+    public function getCampaignBranchIdsByBranch( $branchId )
+    {
+        return $this->where( 'branch_id', $branchId)->get();
+    }
+
+    /**
      * 根据活动id获取门店信息
      */
-    public function getBranchByCampaignBranchId( $campaignBranchId ){
+    public function getBranchByCampaignBranchId( $campaignBranchId )
+    {
         $conditions = array( 
                              array(
                                  'modelName'  => 'BranchModel',
@@ -42,7 +51,8 @@ class CampaignbranchHasBranchesModel extends DWDData_Db {
     /**
      * 根据活动id批量获取门店信息
      */
-    public function getBranchsByCampaignBranchIds( $campaignBranchIds ){
+    public function getBranchsByCampaignBranchIds( $campaignBranchIds )
+    {
 
         $conditions = array( 
                              array(

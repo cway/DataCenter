@@ -11,7 +11,7 @@ class CampaignBranchModel extends DWDData_Db {
     const FILED_ONLY_ID_TYPE           = 1; 
 
     protected $fieldTypes              = array(
-					                        array( 'id', 'campaign_id', 'start_time', 'end_time', 'type', 'redeem_start_time', 'redeem_end_time', 'countdown_start_time', 'countdown_continue', 'start_price', 'floor_price', 'market_price', 'unlock_price', 'current_price', 'bargain_range', 'stock', '`left`', 'is_new', 'redeem_period', 'freeze_period', 'need_book',  'allow_take_out', 'refund_type', 'tips', 'like_count', 'enabled', 'created_at', 'updated_at' ),
+					                        array( 'id', 'campaign_id', 'start_time', 'end_time', 'type', 'redeem_start_time', 'redeem_end_time', 'countdown_start_time', 'countdown_continue', 'start_price', 'floor_price', 'market_price', 'unlock_price', 'current_price', 'bargain_range', 'stock', '`left`', 'is_new', 'redeem_period', 'freeze_period', 'need_book',  'allow_take_out', 'refund_type', 'tips', 'like_count', 'week', 'enabled', 'created_at', 'updated_at' ),
 				                            array( 'campaign_branch.id'),
                                          );
     protected $dbFields                = array( 'id', 'campaign_id', 'start_time', 'end_time', 'type', 'redeem_start_time', 'redeem_end_time', 'countdown_start_time', 'countdown_continue', 'start_price', 'floor_price', 'market_price', 'unlock_price', 'current_price', 'bargain_range', 'stock', 'left', 'is_new', 'redeem_period', 'freeze_period', 'need_book',  'allow_take_out', 'refund_type', 'tips', 'like_count', 'enabled', 'created_at', 'updated_at' );
@@ -41,6 +41,15 @@ class CampaignBranchModel extends DWDData_Db {
 
         $campaignBranch['updated_at']  = date('Y-m-d, H:i:s');
         return $this->update( $campaignBranch );
+    }
+
+    /**
+     *批量更新活动
+     */
+    public function updateCampaignBranchs( $conditions, $updates ){
+        $updates['updated_at']  = date('Y-m-d, H:i:s');
+        self::_initConditions( $conditions );
+        return $this->getDB()->update( $this->dbTable, $updates );
     }
 
     /**

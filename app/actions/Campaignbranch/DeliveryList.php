@@ -108,6 +108,7 @@ class DeliveryListAction extends DWDData_Action
                 }
             }
           }
+          
         }
 
         $mongo->close();
