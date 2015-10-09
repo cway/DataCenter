@@ -62,6 +62,7 @@ class LogUserLockModel extends DWDData_Db {
          $this->note              = $lockInfo['note'];
          $this->create_at         = date('Y-m-d H:i:s');
          $this->reason_type       = $lockInfo['reason_type'];
-         return  $this->insert();
+        
+         return $this->insert();  
     }
 }

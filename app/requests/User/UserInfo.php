@@ -29,4 +29,4 @@ class User_UserInfo_Request extends DWDData_Request
 
         return parent::checkParams();
     }
-} 
+}

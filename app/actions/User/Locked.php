@@ -36,7 +36,7 @@ class LockedAction extends DWDData_Action
         $res                = $m_user->updateUserInfo( $userId, $updates );
  
         if( !$res ){
-            $this->renderErrorJson( array( 'data' => $data, 'errno' => DWDData_ErrorCode::USER_LOCKED_FAILED, 'errmsg' => DWDData_ErrorCode::USER_LOCKED_FAILED_MSG ) );
+            $this->renderErrorJson( array( 'data' => 'failed', 'errno' => DWDData_ErrorCode::USER_LOCKED_FAILED, 'errmsg' => DWDData_ErrorCode::USER_LOCKED_FAILED_MSG ) );
             return ;
         }
 
@@ -50,7 +50,7 @@ class LockedAction extends DWDData_Action
                                 'reason_type' => $reasonType,
                               );
         $m_logUserLockModel = new LogUserLockModel;
-        $m_logUserLockModel->addLockRecord( $record );
+        $m_logUserLockModel->addLockRecord( $record ); 
         $this->renderSuccessJson( array( 'data' => 'success' ) );
     }
 }
