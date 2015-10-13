@@ -71,7 +71,6 @@ abstract class DWDData_Action extends Yaf_Action_Abstract
     public function init ()
     {
         Yaf_Dispatcher::getInstance()->disableView();
-        $this->checkLogin();
         $this->checkAuth();  
     }
 
@@ -234,28 +233,6 @@ abstract class DWDData_Action extends Yaf_Action_Abstract
 
 
     /**
-     * 判断是否登录
-     * @return bool
-     */
-    public function checkLogin(){
-        $userTokenParam = $this->getRequest()->getParam('user_token');
-
-        if(( !isset($_COOKIE['user_token']) || empty($_COOKIE['user_token']) )
-            && ( !isset($userTokenParam) || empty($userTokenParam) )) {
-            return false;
-        }
-
-        $userToken = isset($_COOKIE['user_token']) ? $_COOKIE['user_token'] : $userTokenParam;
-        $m_User = new UserModel();
-        $currentUser = $m_User->FindUsrByToken($userToken);
-        if(false === $currentUser || strtotime($currentUser['last_sign_in_at']) + DWDData_Const::TOKEN_TIMEOUT < time()) {
-            return false;
-        }
-        $this->_authValue = array( 'user_id' => $currentUser['id'], 'user_token' => $userToken);
-        return true;
-    }
-
-    /**
      * 身份验证
      */
     public function checkAuth()
@@ -268,17 +245,6 @@ abstract class DWDData_Action extends Yaf_Action_Abstract
         }
     }
 
-    /**
-     * 判断访问是否来自移动端
-     */
-    public function checkMobile()
-    {
-        $host = $_SERVER['HTTP_HOST'];
-        $hostArray = explode('.', $host);
-        if( !empty($hostArray) && 'm' == current($hostArray) ) {
-            $this->_isMobileClient = true;
-        }
-    }
 }
 
 

@@ -6,12 +6,14 @@
 class CampaignbranchController extends DWDData_Base {
 
 	public $actions = array(
-                        'offline'	            => 'actions/Campaignbranch/Offline.php', 
+                        'offline'	              => 'actions/Campaignbranch/Offline.php', 
                         'branchlist'            => 'actions/Campaignbranch/BranchList.php',
                         'campaignbranchlist'    => 'actions/Campaignbranch/CampaignBranchList.php',
-                        'nearlist'				=> 'actions/Campaignbranch/NearList.php',
-                      	'toplist'				=> 'actions/Campaignbranch/TopList.php',
-                      	'deliverylist'		    => 'actions/Campaignbranch/DeliveryList.php',
-                      	'detail'				=> 'actions/Campaignbranch/Detail.php',
+                        'nearlist'				      => 'actions/Campaignbranch/NearList.php',
+                      	'toplist'				        => 'actions/Campaignbranch/TopList.php',
+                      	'deliverylist'		      => 'actions/Campaignbranch/DeliveryList.php',
+                      	'detail'			        	=> 'actions/Campaignbranch/Detail.php',
+                      	'categorylist'			    => 'actions/Campaignbranch/CategoryList.php',
+                      	'iteminfo'				      => 'actions/Campaignbranch/ItemInfo.php',
                       );
 }
