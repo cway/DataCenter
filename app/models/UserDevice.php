@@ -55,8 +55,8 @@ class UserDeviceModel extends DWDData_Db {
     public function unBindDevice( $userId )
     {
 
-        $deviceInfo   = $this->where( 'user_id', $userId )->getOne( $this->fieldTypes[self::FILED_COMMON_TYPE] );
-
+        $deviceInfo   = $this->where( 'user_id', intval($userId) )->getOne( $this->fieldTypes[self::FILED_COMMON_TYPE] );
+ 
         if( empty( $deviceInfo ) ){
             return false;
         }
@@ -65,6 +65,7 @@ class UserDeviceModel extends DWDData_Db {
                           'id' => $deviceInfo['id'],
                         );  
         $res          = $this->where( 'user_id', $userId )->delete();
+
         return  $res == true ? $deviceInfo : false;
     }
 }

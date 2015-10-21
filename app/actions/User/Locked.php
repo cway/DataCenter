@@ -33,6 +33,7 @@ class LockedAction extends DWDData_Action
                                 'locked_at'   => $now, 
                                 'lock_date'   => $unlockDate,
                               );
+       
         $res                = $m_user->updateUserInfo( $userId, $updates );
  
         if( !$res ){
